@@ -1,8 +1,7 @@
 # CP-Handbook
 
 The ultimate C++ collection of the algorithms in
-**Competitive Programmer's Handbook** by Antti Laaksonen
-([book repo]).
+**Competitive Programmer's Handbook** by Antti Laaksonen ([repo]).
 
 This repository comprises some driver test cases along with the implementation
 of each algorithm. The code is mostly an adaptation of the snippets seen in the
@@ -21,7 +20,7 @@ stack, have a look here.
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
-[book repo]: https://github.com/pllk/cphb
+[repo]: https://github.com/pllk/cphb
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
