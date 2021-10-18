@@ -2,31 +2,27 @@
 using namespace std;
 
 
-int arr[] = {9, 4, 6, 1, 9, 5, 10, 7};
+vector<int> v{9, 4, 6, 1, 9, 5, 10, 7};
 const int x = 12;
+
 
 void solve()
 {
-  int n = sizeof(arr) / sizeof(arr[0]);
-  sort(arr, arr + n);
-  int* l = arr;
-  int* r = arr + n - 1;
-  int sum = 0;
+  sort(v.begin(), v.end());
+  int i = 0;
+  int j = v.size() - 1;
+  int s = v[i] + v[j];
 
-  // cout << "l r sum\n"
-  //      << distance(arr, l) << ' ' << distance(arr, r) << ' ' << *l + *r << '\n';
-  while (distance(l, r) > 0) {
-    if (sum == x) {
-      cout << *l << ' ' << *r << '\n';
-      return;
-    }
-    else if (sum < x) l += 1;
-    else r -= 1;
-    sum = *l + *r;
-    // cout << distance(arr, l) << ' ' << distance(arr, r) << ' ' << sum << '\n';
+  while ((s != x) && (j - i > 1)) {
+    if (s < x) ++i;
+    else --j;
+    s = v[i] + v[j];
   }
-  cout << "IMPOSSIBLE\n";
+
+  if (s == x) cout << v[i] << ' ' << v[j] << '\n';
+  else cout << "IMPOSSIBLE\n";
 }
+
 
 
 int main()
