@@ -20,15 +20,13 @@ typedef vector<pair<int, int> > vpi;
 #define F first
 #define S second
 
+#define LP(i,a,b) for (int i = a; i < b; ++i)
+#define lp(i,b) for (int i = 0; i < b; ++i)
 
-//! Prints the items of an 1D vector, space separated.
 template <typename T>
 ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  if (!v.empty()) {
-    copy(v.B, v.E, ostream_iterator<T>(out, " "));
-    out << '\b';
-  }
+  if (!v.empty()) copy(v.B, v.E, ostream_iterator<T>(out, " "));
   return out;
 }
 
