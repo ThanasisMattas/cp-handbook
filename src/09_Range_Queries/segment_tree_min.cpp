@@ -55,12 +55,25 @@ void update(int k, int val)
 }
 
 
+// O(log(n))
+int argmin()
+{
+  int levels = (int)log2(n);
+  int k = 1;
+  while (levels--)
+    k = (tree[2 * k] < tree[2 * k + 1]) ? 2 * k : 2 * k + 1;
+  return k - n;
+}
+
+
 // O(n + qlog(n))
 void solve()
 {
   populate_tree();
   cout << v << '\n';
   cout << tree << '\n';
+
+  cout << "argmin: " << argmin() << '\n';
 
   int q;
   cout << "Number of queries: ";
