@@ -5,6 +5,7 @@ using namespace std;
 // freopen("output.txt", "w", stdout);
 typedef long long ll;
 typedef vector<int> vi;
+typedef vector<vi> vvi;
 typedef vector<ll> vll;
 typedef pair<int, int> pi;
 typedef vector<pair<int, int> > vpi;

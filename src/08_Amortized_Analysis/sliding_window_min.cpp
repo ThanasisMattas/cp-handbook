@@ -3,67 +3,58 @@ using namespace std;
 
 
 template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
+ostream& operator<<(ostream& out, queue<T>& q)
 {
   out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, ", "));
-    cout << "\b\b";
+  if (!q.empty()) {
+    size_t sz = q.size();
+    while (sz--) {
+      T x = q.front(); q.pop();
+      out << x << ' ';
+      q.push(x);
+    }
+    out << '\b';
   }
   out << ']';
   return out;
 }
 
-template <typename T>
-ostream& operator<<(ostream& out, const deque<T>& v)
-{
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, ", "));
-    cout << "\b\b";
-  }
-  out << ']';
-  return out;
-}
 
-int arr[] = {2, 1, 4, 5, 3, 4, 1, 2};
-int w = 4;
-
-void solve_naive()
-{
-  int n = sizeof(arr) / sizeof(arr[0]);
-  for (int i = 0; i <= n - w; ++i) {
-    cout << "min of window [ ";
-    copy(arr + i, arr + i + w, ostream_iterator<int>(cout, " "));
-    cout << "] is " << *min_element(arr + i, arr + i + w) << '\n';
-  }
-}
+vector<int> v{2, 1, 4, 5, 3, 4, 1, 2};
+const size_t w = 4;
 
 
 void solve()
 {
-  int n = sizeof(arr) / sizeof(arr[0]);
-  deque<int> q;
-  // init q
-  for (int i = 0; i < w; ++i) {
-    while (!q.empty() && q.back() >= arr[i]) q.pop_back();
-    q.push_back(arr[i]);
+  queue<int> q;
+  q.push(v[0]);
+
+  // first window
+  for (size_t i = 1; i < w; ++i) {
+    while ((!q.empty()) && (q.front() >= v[i])) q.pop();
+    q.push(v[i]);
   }
 
+  // Optional print block
   cout << "min of window [ ";
-  copy(arr, arr + w, ostream_iterator<int>(cout, " "));
-  cout << "] with queue " << q << " is " << q.front() << '\n';
+  copy(v.begin(), v.begin() + w, ostream_iterator<int>(cout, " "));
+  cout << "] with queue " << q << string(2 * w - 2 * q.size(), ' ')
+       << " is " << q.front() << '\n';
 
-  for (int i = 1; i <= n - w; ++i) {
-    // remove front if it falls out of the window
-    if (q.front() == arr[i - 1]) q.pop_front();
+  for (size_t i = w; i < v.size(); ++i) {
+    // pop front, if it fell out of the window
+    if (q.front() == v[i - w]) q.pop();
 
-    while(!q.empty() && q.back() >= arr[i + w - 1]) q.pop_back();
-    q.push_back(arr[i + w - 1]);
+    while((!q.empty()) && (q.front() >= v[i])) q.pop();
+    q.push(v[i]);
 
+    // Optional print block
     cout << "min of window [ ";
-    copy(arr + i, arr + i + w, ostream_iterator<int>(cout, " "));
-    cout << "] with queue " << q << " is " << q.front() << '\n';
+    copy(v.begin() + i - w + 1,
+         v.begin() + i + 1,
+         ostream_iterator<int>(cout, " "));
+    cout << "] with queue " << q << string(2 * w - 2 * q.size(), ' ')
+         << " is " << q.front() << '\n';
   }
 }
 
