@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
@@ -18,33 +17,21 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 class Node
 {
-  Node* right;
-  Node* left;
-  int weight;
-  char name;
+  char m_name;
+  Node* m_right;
+  Node* m_left;
 
   public:
-  Node();
-  Node(Node* right=nullptr, Node* left=nullptr, int weight=0, char name=' ')
-  : right(right), left(left), weight(weight), name(name) {}
+  Node(char name='-', Node* right=nullptr, Node* left=nullptr)
+  : m_name(name), m_right(right), m_left(left) {}
 
-  bool operator==(Node* node)
-  {
-    if (this-> left == node-> left && this-> right == node-> right
-        && this-> weight == node-> weight && this-> name == node-> name)
-      return true;
-    return false;
-  }
+  void setRight(Node* right) {m_right = right;}
+  void setLeft(Node* left) {m_left = left;}
+  void setName(char name) {m_name = name;}
 
-  void setRight(Node* right) {this-> right = right;}
-  void setLeft(Node* left) {this-> left = left;}
-  void setWeight(int weight) {this-> weight = weight;}
-  void setName(char name) {this-> name = name;}
-
-  Node* getRight() {return this-> right;}
-  Node* getLeft() {return this-> left;}
-  int getWeight() {return this-> weight;}
-  char getName() {return this-> name;}
+  Node* getRight() {return m_right;}
+  Node* getLeft() {return m_left;}
+  char getName() {return m_name;}
 };
 
 
@@ -53,43 +40,48 @@ class BTree
   public:
   Node* insert(Node* head, Node* new_node)
   {
-    if (new_node == head) return head;
-    Node* new_head = new Node(head,
-                              new_node,
-                              head-> getWeight() + new_node-> getWeight(),
-                              ' ');
-    return new_head;
+    if (head == nullptr) return new_node;
+    return new Node('-', head, new_node);
+  }
+
+  void print_code(Node* head)
+  {
+    string codeword;
+    while (head-> getRight()) {
+      cout << head-> getLeft()-> getName() << ' ' << codeword + '0' << '\n';
+      head = head-> getRight();
+      codeword += '1';
+    }
+    cout << head-> getName() << ' ' << codeword << '\n';
   }
 };
 
 
+string s = "AABACDACA";
+
+
 void solve(int y = 0)
 {
-  multimap<int, Node*> freq;
-  freq.insert(make_pair(5, new Node(nullptr, nullptr, 5, 'A')));
-  freq.insert(make_pair(1, new Node(nullptr, nullptr, 1, 'B')));
-  freq.insert(make_pair(2, new Node(nullptr, nullptr, 2, 'C')));
-  freq.insert(make_pair(1, new Node(nullptr, nullptr, 1, 'D')));
-
-  BTree hoffman;
-  Node* head = (*freq.begin()).second;
-  for (multimap<int, Node*>::iterator it = freq.begin();
-       it != freq.end();
-       ++it) {
-    head = hoffman.insert(head, (*it).second);
+  // construct the frequency map and sort by value
+  unordered_map<char, int> freq;
+  for (auto c : s) {
+    if (freq.find(c) == freq.end()) freq[c] = 1;
+    else ++freq[c];
   }
+  vector<pair<char, int> > freq_vect(freq.begin(), freq.end());
+  sort(freq_vect.begin(), freq_vect.end(), [](auto &left, auto &right) {
+    return left.second < right.second;
+  });
 
-  string codeword;
-  while (head-> getRight()) {
-    cout << head-> getLeft()-> getName() << ' ' << codeword + '0' << '\n';
-    head = head-> getRight();
-    codeword += '1';
-  }
-  cout << head-> getName() << ' ' << codeword << '\n';
+  BTree huffman;
+  Node* head = nullptr;
+
+  // populate the binary tree
+  for (auto p : freq_vect)
+    head = huffman.insert(head, new Node(p.first));
+
+  huffman.print_code(head);
 }
 
 
-int main()
-{
-  solve();
-}
+int main() {solve();}
