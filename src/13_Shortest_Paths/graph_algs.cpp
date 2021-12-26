@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
@@ -18,7 +17,7 @@ void dijkstra()
   dist[s] = 0;
   memset(visited, false, sizeof(visited));
   visited[s] = true;
-  pq.push({0, s});
+  pq.push(make_pair(0, s));
 
   while (!pq.empty()) {
     int u = pq.top().second; pq.pop();
@@ -28,7 +27,7 @@ void dijkstra()
       int v = ne.first, w = ne.second;
       if (dist[v] > dist[u] + w) {
         dist[v] = dist[u] + w;
-        pq.push({dist[v], v});
+        pq.push(make_pair(dist[v], v));
       }
     }
   }
