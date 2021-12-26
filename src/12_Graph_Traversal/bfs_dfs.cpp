@@ -18,8 +18,11 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 {
   bool disc[adj.size() + 1];
+  int dist[adj.size() + 1];
   memset(disc, false, sizeof(disc));
+  memset(dist, 0x3f, sizeof(dist));
   disc[s] = true;
+  dist[s] = 0;
   vector<int> seq;
   queue<int> q;
   q.push(s);
@@ -30,6 +33,7 @@ vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
     for (auto v : adj[u]) {
       if (!disc[v]) {
         disc[v] = true;
+        dist[v] = dist[u] + 1;
         q.push(v);
       }
     }
@@ -43,17 +47,17 @@ vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
   bool disc[adj.size() + 1];
   memset(disc, false, sizeof(disc));
   disc[s] = true;
-  stack<int> to_visit;
-  to_visit.push(s);
+  stack<int> st;
+  st.push(s);
   vector<int> seq;
 
-  while (!to_visit.empty()) {
-    int u = to_visit.top(); to_visit.pop();
+  while (!st.empty()) {
+    int u = st.top(); st.pop();
     seq.push_back(u);
     for (auto v : adj[u]) {
       if (!disc[v]) {
         disc[v] = true;
-        to_visit.push(v);
+        st.push(v);
       }
     }
   }
