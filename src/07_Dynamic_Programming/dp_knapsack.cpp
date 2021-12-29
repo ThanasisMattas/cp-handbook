@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int w[] = {0, 1, 3, 3, 5};
+int w[] = {1, 3, 3, 5};
 
 
 // O(nx) time, n: number of values, x: sum
@@ -12,29 +12,38 @@ void solve_1()
 {
   int n = sizeof(w) / sizeof(w[0]);
   int max_w = accumulate(w, w + n, 0);
-  // possible
-  bool pos[max_w+1][n];
-  memset(pos, false, sizeof(pos));
-  pos[0][0] = true;
+  // posssible
+  bool poss[max_w + 1][n + 1];
+  memset(poss, false, sizeof(poss));
+  poss[0][0] = true;
 
-  for (int k = 1; k < n; ++k) {
+  for (int k = 1; k <= n; ++k) {
     for (int x = 0; x <= max_w; ++x) {
-      if (x - w[k] >= 0)
-        pos[x][k] |= pos[x - w[k]][k - 1];
-      pos[x][k] |= pos[x][k-1];
+      // w index must be offset by -1, because the 0th index of poss corre-
+      // sponds to no weights. Namely, the 1st index of poss corresponds to
+      // the 0th weight at w.
+      if (x - w[k - 1] >= 0)
+        poss[x][k] |= poss[x - w[k - 1]][k - 1];
+      poss[x][k] |= poss[x][k - 1];
     }
   }
 
+  // Optional printing block:
   cout << "  | ";
-  for (int i = 0; i <= max_w; ++i) {
-    cout << right << setw(2) << i << ' ';
+  for (int x = 0; x <= max_w; ++x) {
+    cout << right << setw(2) << x << ' ';
+  }
+  cout << '\n';
+  cout << "0 | ";
+  for (int x = 0; x <= max_w; ++x) {
+    cout << right << setw(2) << (poss[x][0] ? "X": " ") << ' ';
   }
   cout << '\n';
 
-  for (int j = 0; j < n; ++j) {
-    cout << w[j] << " | ";
-    for (int i = 0; i <= max_w; ++i) {
-      cout << right << setw(2) << (pos[i][j] ? "X": " ") << ' ';
+  for (int k = 1; k <= n; ++k) {
+    cout << w[k - 1] << " | ";
+    for (int x = 0; x <= max_w; ++x) {
+      cout << right << setw(2) << (poss[x][k] ? "X": " ") << ' ';
     }
     cout << '\n';
   }
@@ -47,24 +56,25 @@ void solve_2()
 {
   int n = sizeof(w) / sizeof(w[0]);
   int max_w = accumulate(w, w + n, 0);
-  bool pos[max_w + 1];
-  memset(pos, false, sizeof(pos));
-  pos[0] = true;
+  bool poss[max_w + 1];
+  memset(poss, false, sizeof(poss));
+  poss[0] = true;
 
-  for (int k = 1; k < n; ++k)
+  for (int k = 0; k < n; ++k)
     for (int x = max_w; x >= 0; --x)
-      if (pos[x])
-        pos[x + w[k]] = true;
+      if (poss[x])
+        poss[x + w[k]] = true;
 
+  // Optional printing block:
   cout << "  | ";
-  for (int i = 0; i <= max_w; ++i) {
-    cout << right << setw(2) << i << ' ';
+  for (int x = 0; x <= max_w; ++x) {
+    cout << right << setw(2) << x << ' ';
   }
   cout << '\n';
 
   cout << "  | ";
-  for (int i = 0; i <= max_w; ++i) {
-    cout << right << setw(2) << (pos[i] ? "X": " ") << ' ';
+  for (int x = 0; x <= max_w; ++x) {
+    cout << right << setw(2) << (poss[x] ? "X": " ") << ' ';
   }
   cout << '\n';
 }
