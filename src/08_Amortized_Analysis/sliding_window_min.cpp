@@ -27,10 +27,9 @@ const size_t w = 4;
 void solve()
 {
   queue<int> q;
-  q.push(v[0]);
 
   // first window
-  for (size_t i = 1; i < w; ++i) {
+  for (size_t i = 0; i < w; ++i) {
     while ((!q.empty()) && (q.front() >= v[i])) q.pop();
     q.push(v[i]);
   }
