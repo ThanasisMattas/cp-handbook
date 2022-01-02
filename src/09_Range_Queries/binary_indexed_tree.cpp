@@ -23,8 +23,7 @@ void populate_tree()
   partial_sum(v.begin(), v.end(), cumsum.begin() + 1);
 
   for (int k = 1; k <= n; ++k) {
-    int max_power = k & -k;
-    tree[k] = cumsum[k] - cumsum[k - max_power];
+    tree[k] = cumsum[k] - cumsum[k - (k & -k)];
   }
 }
 
