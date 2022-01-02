@@ -37,9 +37,8 @@ void populate_table()
     queue<int> q;
 
     // 1st window
-    q.push(v[0]);
-    for (int i = 1; i < w; ++i) {
-      while (!q.empty() && v[i] <= q.front()) q.pop();
+    for (int i = 0; i < w; ++i) {
+      while ((!q.empty()) && (q.front() >= v[i])) q.pop();
       q.push(v[i]);
     }
     row[0] = q.front();
@@ -48,7 +47,7 @@ void populate_table()
     for (int i = w; i < n; ++i) {
       // pop if front fell out of the window
       if (q.front() == v[i - w]) q.pop();
-      while (!q.empty() && v[i] <= q.front()) q.pop();
+      while ((!q.empty()) && (q.front() >= v[i])) q.pop();
       q.push(v[i]);
       row[i - w + 1] = q.front();
     }

@@ -41,12 +41,12 @@ int sum(int k)
 
 
 // O(log(n))
-void update(int k, int val)
+void update(int k, int new_val)
 {
-  // v[k] = val;
-  int x = val - v[k];
+  // v[k] = new_val;
+  int diff = new_val - v[k];
   while (k <= n) {
-    tree[k] += x;
+    tree[k] += diff;
     k += k & -k;
   }
 }
