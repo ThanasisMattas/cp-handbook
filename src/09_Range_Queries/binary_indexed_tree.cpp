@@ -11,7 +11,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 
 const int n = 8;
-vector<int> v{0, 1, 3, 4, 8, 6, 1, 4, 2};
+vector<int> v{1, 3, 4, 8, 6, 1, 4, 2};
 vector<int> tree(n + 1);
 
 
@@ -19,7 +19,8 @@ vector<int> tree(n + 1);
 void populate_tree()
 {
   vector<int> cumsum(n + 1);
-  partial_sum(v.begin(), v.end(), cumsum.begin());
+  // cumulative sum begins at index 1
+  partial_sum(v.begin(), v.end(), cumsum.begin() + 1);
 
   for (int k = 1; k <= n; ++k) {
     int max_power = k & -k;
@@ -44,7 +45,8 @@ int sum(int k)
 void update(int k, int new_val)
 {
   // v[k] = new_val;
-  int diff = new_val - v[k];
+  // offset with -1, to meet the zero indexed vector
+  int diff = new_val - v[k - 1];
   while (k <= n) {
     tree[k] += diff;
     k += k & -k;
