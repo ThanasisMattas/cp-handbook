@@ -20,7 +20,7 @@ int hamming(string a, string b)
 
 
 // O(1)
-int hamming(int a, int b)
+int hamming(unsigned long a, unsigned long b)
 {
   return __builtin_popcount(a ^ b);
 }
