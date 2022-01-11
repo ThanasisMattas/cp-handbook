@@ -52,6 +52,10 @@ int main()
   generate(color[0], color[0] + n * n, [](){return rand() % 2;});
   generate(color_bset[0], color_bset[0] + n * n / N, [](){return dist(eng);});
 
+  for (int i = 0; i < n; ++i)
+    for (int j = 0; j < n; ++j)
+      cout << color[i][j] << ' ';
+
   cout << brute_force() << '\n';
   cout << bit_optimization() << '\n';
 }
