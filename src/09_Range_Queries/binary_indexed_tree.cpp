@@ -43,8 +43,8 @@ int sum(int k)
 // O(log(n))
 void update(int k, int new_val)
 {
-  // v[k] = new_val;
   // offset with -1, to meet the zero indexed vector
+  // v[k - 1] = new_val;  // however, there is no need to update v
   int diff = new_val - v[k - 1];
   while (k <= n) {
     tree[k] += diff;
@@ -65,6 +65,7 @@ void solve()
   cin >> q;
 
   int type;
+  // NOTE: query indexes are 1-based
   int a, b;
   cout << "For sum queries enter: 1 a b.\n"
        << "For update queries enter: 2 idx val\n";
