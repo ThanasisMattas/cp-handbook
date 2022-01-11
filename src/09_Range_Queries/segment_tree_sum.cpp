@@ -45,11 +45,11 @@ int sum(int a, int b)
 
 
 // O(log(n))
-void update(int k, int val)
+void update(int k, int new_val)
 {
-  // v[k] = val;
-  int x = val - v[k];
-  for (k += n; k >= 1; k /= 2) tree[k] += x;
+  // v[k] = new_val;  // however, there is no need to update v
+  int diff = new_val - v[k];
+  for (k += n; k >= 1; k /= 2) tree[k] += diff;
 }
 
 
@@ -65,6 +65,7 @@ void solve()
   cin >> q;
 
   int type;
+  // NOTE: query indexes are 0-based, at odds with binary indexed tree
   int a, b;
   cout << "For sum queries enter: 1 a b.\n"
        << "For update queries enter: 2 idx val\n";
