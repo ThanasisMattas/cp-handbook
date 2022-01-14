@@ -65,6 +65,33 @@ vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
 }
 
 
+const int n = 100;
+vector<int> adj_list[n + 1];
+bool disc[n + 1];
+
+
+void dfs_rec_graph(int u)
+{
+  // process u
+  for (auto v : adj_list[u]) {
+    if (disc[v]) continue;
+    disc[v] = true;
+    dfs_rec_graph(v);
+  }
+}
+
+
+// No need for disc flags. Just do not go back to the parent node.
+void dfs_rec_tree(int u, int u_prev)
+{
+  // process u
+  for (auto u_next : adj_list[u]) {
+    if (u_next == u_prev) continue;
+    dfs_rec_tree(u_next, u);
+  }
+}
+
+
 int main()
 {
   vector<unordered_set<int> > adj{
