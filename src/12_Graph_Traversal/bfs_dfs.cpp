@@ -17,6 +17,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 {
+  // discovered
   bool disc[adj.size()];
   int dist[adj.size()];
   memset(disc, false, sizeof(disc));
@@ -81,7 +82,7 @@ void dfs_rec_graph(int u)
 }
 
 
-// No need for disc flags. Just do not go back to the parent node.
+// No need for discovered flags. Just do not go back to the parent node.
 void dfs_rec_tree(int u, int u_prev)
 {
   // process u
