@@ -17,8 +17,8 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 {
-  bool disc[adj.size() + 1];
-  int dist[adj.size() + 1];
+  bool disc[adj.size()];
+  int dist[adj.size()];
   memset(disc, false, sizeof(disc));
   memset(dist, 0x3f, sizeof(dist));
   disc[s] = true;
@@ -44,7 +44,7 @@ vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 
 vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
 {
-  bool disc[adj.size() + 1];
+  bool disc[adj.size()];
   memset(disc, false, sizeof(disc));
   disc[s] = true;
   stack<int> st;
