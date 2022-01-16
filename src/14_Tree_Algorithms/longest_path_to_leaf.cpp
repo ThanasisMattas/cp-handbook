@@ -28,11 +28,10 @@ int len[n + 1] = {0};
 
 void dfs(int u, int u_prev)
 {
-  if (adj[u].size() == 1) {
-    // leaf
+  // In order to be a leaf, the single neighbor has to be u_prev.
+  if ((adj[u].size() == 1) && (adj[u][0] == u_prev)) {
     len[u_prev] = max(len[u_prev], 1);
   } else {
-    // not leaf
     for (auto u_next : adj[u]) {
       if (u_next != u_prev) {
         dfs(u_next, u);
