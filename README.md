@@ -1,16 +1,14 @@
 # CP-Handbook
 
-The ultimate C++ collection of the algorithms in
+The ultimate C++ turnkey collection of the algorithms in
 [Competitive Programmer's Handbook] by Antti Laaksonen.
-
-This repository comprises turnkey implementations of each algorithm. The code
-is mostly an adaptation of the snippets seen in the book, with occasional extra
-additions. There are also examples for methods for which code is not provided.
 
 ## Usage
 
 Read the analysis of the algorithm in the book. Try it yourself. If you get
 stack, have a look here.
+
+<br>
 
 [![cc-by-nc-sa-image]][cc-by-nc-sa]
 
