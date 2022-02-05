@@ -33,10 +33,9 @@ void dfs(int u, int u_prev)
     len[u_prev] = max(len[u_prev], 1);
   } else {
     for (auto u_next : adj[u]) {
-      if (u_next != u_prev) {
-        dfs(u_next, u);
-        len[u] = max(len[u], len[u_next] + 1);
-      }
+      if (u_next == u_prev) continue;
+      dfs(u_next, u);
+      len[u] = max(len[u], len[u_next] + 1);
     }
   }
 }
