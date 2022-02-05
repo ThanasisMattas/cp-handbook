@@ -54,9 +54,7 @@ bool bellman_ford(int s)
     halt = true;
     for (int u = 1; u <= n; ++u) {
       if (dist[u] != dist[0]) {
-        for (auto ne : adj[u]) {
-          int v = ne.first;
-          int w = ne.second;
+        for (auto& [v, w] : adj[u]) {
           if (dist[v] > dist[u] + w) {
             dist[v] = dist[u] + w;
             halt = false;
@@ -67,11 +65,10 @@ bool bellman_ford(int s)
     if (halt) break;
   }
 
+  // Check for negative cycles.
   if (!halt) {
     for (int u = 1; u <= n; ++u) {
-      for (auto ne : adj[u]) {
-        int v = ne.first;
-        int w = ne.second;
+      for (auto& [v, w] : adj[u]) {
         if (dist[v] > dist[u] + w) return false;
       }
     }
