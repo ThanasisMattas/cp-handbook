@@ -1,31 +1,25 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <iterator>
-#include <limits>
-
+#pragma GCC optimize ("O3")
+#include <bits/stdc++.h>
 using namespace std;
-using vi = vector<int>;
 
 
-ostream& operator<<(ostream& out, const vi& v)
+template <typename T>
+ostream& operator<<(ostream& out, const vector<T> v)
 {
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<int>(out, ", "));
-    out << "\b\b";
-  }
-  out << ']';
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
 
 
-void merge(vi& v, int l, int m, int r)
+vector<int> v{1, 3, 8, 2, 9, 5, 6};
+
+
+void merge(int l, int m, int r)
 {
-  if (l <= m && m <= r) {
+  if ((l <= m) && (m <= r)) {
     int n1 = m - l + 1;
     int n2 = r - m;
-    vi L(n1 + 1), R(n2 + 1);
+    vector<int> L(n1 + 1), R(n2 + 1);
     copy(v.begin() + l, v.begin() + m + 1, L.begin());
     copy(v.begin() + m + 1, v.begin() + r + 1, R.begin());
     L[n1] = std::numeric_limits<int>::max();
@@ -47,23 +41,67 @@ void merge(vi& v, int l, int m, int r)
 
 
 // O(nlogn)
-void merge_sort(vi& v, int l, int r)
+void merge_sort(int l, int r)
 {
   if (l < r) {
     int m = (l + r) / 2;
-    merge_sort(v, l, m);
-    merge_sort(v, m + 1, r);
-    merge(v, l, m, r);
+    merge_sort(l, m);
+    merge_sort(m + 1, r);
+    merge(l, m, r);
   }
+}
+
+
+void merge2(int l , int r, int m)
+{
+  int n1 = m - l + 1;
+  int n2 = r - m;
+  vector<int> v1(n1);
+  vector<int> v2(n2);
+  copy(v.begin() + l, v.begin() + m + 1, v1.begin());
+  copy(v.begin() + m + 1, v.begin() + r + 1, v2.begin());
+  int i = 0;
+  int j = 0;
+  int k = l;
+  while ((i < n1) && (j < n2)) {
+    if (v1[i] < v2[j]) {
+      v[k] = v1[i];
+      ++i;
+    } else if (v1[i] > v2[j]) {
+      v[k] = v2[j];
+      ++j;
+    } else {
+      v[k] = v1[i];
+      ++i;
+      ++k;
+      v[k] = v2[j];
+      ++j;
+    }
+    ++k;
+  }
+
+  if (i < n1) copy(v1.begin() + i, v1.end(), v.begin() + k);
+  else copy(v2.begin() + j, v2.end(), v.begin() + k);
+}
+
+
+void merge_sort2(int l , int r)
+{
+  if (l == r) return;
+  if (r == l + 1) {
+    if (v[r] < v[l]) swap(v[r], v[l]);
+    return;
+  }
+  int m = (l + r) / 2;
+  merge_sort2(l, m);
+  merge_sort2(m + 1, r);
+  merge2(l, r, m);
 }
 
 
 int main()
 {
-  vi v{1, 3, 8, 2, 9, 5, 6};
-  cout << v << endl;
-
-  merge_sort(v, 0, v.size() - 1);
-  if (is_sorted(v.begin(), v.end()))
-    cout << "Sorted:\n" << v << '\n';
+  cout << v << '\n';
+  merge_sort2(0, v.size() - 1);
+  cout << v << '\n';
 }
