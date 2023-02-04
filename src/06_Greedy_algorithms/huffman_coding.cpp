@@ -1,85 +1,56 @@
+#pragma GCC optimize ("03")
 #include <bits/stdc++.h>
 using namespace std;
-
 
 template <typename T>
 ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, ", "));
-    cout << "\b\b";
-  }
-  out << ']';
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
 
 
-class Node
+struct Node
 {
-  char m_name;
-  Node* m_right;
-  Node* m_left;
-
-  public:
-  Node(char name='-', Node* right=nullptr, Node* left=nullptr)
-  : m_name(name), m_right(right), m_left(left) {}
-
-  void setRight(Node* right) {m_right = right;}
-  void setLeft(Node* left) {m_left = left;}
-  void setName(char name) {m_name = name;}
-
-  Node* getRight() {return m_right;}
-  Node* getLeft() {return m_left;}
-  char getName() {return m_name;}
+  char name;
+  Node* r;
+  Node* l;
+  Node(char n='-', Node* r=nullptr, Node* l=nullptr): name(n), r(r), l(l) {}
 };
 
 
-class BTree
+struct BTree
 {
-  public:
-  Node* insert(Node* head, Node* new_node)
+  Node* insert(Node* head, Node* node)
   {
-    if (head == nullptr) return new_node;
-    return new Node('-', head, new_node);
+    if (head == nullptr) return node;
+    return new Node('-', head, node);
   }
 
   void print_code(Node* head)
   {
-    string codeword;
-    while (head-> getRight()) {
-      cout << head-> getLeft()-> getName() << ' ' << codeword + '0' << '\n';
-      head = head-> getRight();
-      codeword += '1';
+    string code;
+    while (head-> r) {
+      cout << head-> l-> name << ' ' << code + '0' << '\n';
+      head = head-> r;
+      code += '1';
     }
-    cout << head-> getName() << ' ' << codeword << '\n';
+    cout << head-> name << ' ' << code << '\n';
   }
-};
+} huffman;
 
 
 string s = "AABACDACA";
 
 
-void solve(int y = 0)
+void solve()
 {
-  // construct the frequency map and sort by value
   unordered_map<char, int> freq;
-  for (auto c : s) {
-    if (freq.find(c) == freq.end()) freq[c] = 1;
-    else ++freq[c];
-  }
-  vector<pair<char, int> > freq_vect(freq.begin(), freq.end());
-  sort(freq_vect.begin(), freq_vect.end(), [](auto &left, auto &right) {
-    return left.second < right.second;
-  });
-
-  BTree huffman;
+  for (auto c : s) ++freq[c];
+  vector<pair<char, int> > v(freq.begin(), freq.end());
+  sort(v.begin(), v.end(), [](auto& l, auto& r) {return l.second < r.second;});
   Node* head = nullptr;
-
-  // populate the binary tree
-  for (auto p : freq_vect)
-    head = huffman.insert(head, new Node(p.first));
-
+  for (auto p : v) head = huffman.insert(head, new Node(p.first));
   huffman.print_code(head);
 }
 
