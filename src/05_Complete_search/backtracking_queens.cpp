@@ -1,18 +1,15 @@
+#pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
-ostream& operator<<(ostream& out, const vector<int>& v)
+template <typename T>
+ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<int>(out, ", "));
-    out << "\b\b";
-  }
-  out << ']';
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
+
 
 const int n = 4;
 int counter = 0;
@@ -42,9 +39,16 @@ int main()
   cout << counter << endl;
 
   #ifdef DEBUG
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      cout << setw(2) << right << i + j << ' ';
+  for (int y = 0; y < n; ++y) {
+    for (int x = 0; x < n; ++x) {
+      cout << setw(2) << right << x + y << ' ';
+    }
+    cout << endl;
+  }
+  cout << '\n';
+  for (int y = 0; y < n; ++y) {
+    for (int x = 0; x < n; ++x) {
+      cout << setw(2) << right << x - y + n - 1 << ' ';
     }
     cout << endl;
   }

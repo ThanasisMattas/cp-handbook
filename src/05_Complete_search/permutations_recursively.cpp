@@ -1,18 +1,15 @@
+#pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
-
 using namespace std;
 
 
-ostream& operator<<(ostream& out, const vector<int>& v)
+template <typename T>
+ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<int>(out, ", "));
-    out << "\b\b";
-  }
-  out << ']';
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
+
 
 const int n = 5;
 vector<int> perm;
@@ -21,9 +18,8 @@ vector<bool> chosen(n);
 
 void solve()
 {
-  if (perm.size() == n) {
-    cout << perm << endl;
-  } else {
+  if (perm.size() == n) cout << perm << '\n';
+  else {
     for (int i = 0; i < n; ++i) {
       if (chosen[i]) continue;
       chosen[i] = true;
@@ -35,6 +31,15 @@ void solve()
   }
 }
 
+
+void solve2()
+{
+  vector<int> perm(n);
+  iota(perm.begin(), perm.end(), 0);
+  do {
+    cout << perm << '\n';
+  } while (next_permutation(perm.begin(), perm.end()));
+}
 
 // Unpacking the recursion
 // void search2(int n, vector<int>& perm, vector<bool>& chosen)
@@ -169,7 +174,4 @@ void solve()
 // }
 
 
-int main()
-{
-  solve();
-}
+int main() {solve();}
