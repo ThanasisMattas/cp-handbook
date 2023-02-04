@@ -18,9 +18,8 @@ int solve_recursive(int a, int b)
 // O(nm)
 void solve()
 {
-  int n = x.length();
-  int m = y.length();
-
+  const int n = x.length();
+  const int m = y.length();
   int dist[n + 1][m + 1];
   memset(dist, 0, sizeof(dist));
 
@@ -38,11 +37,13 @@ void solve()
   for (int i = 1; i <= n; ++i) {
     cout << x[i - 1] << ' ' << dist[i][0] << ' ';
     for (int j = 1; j <= m; ++j) {
-      dist[i][j] = min({
-        dist[i][j - 1] + 1,
-        dist[i - 1][j] + 1,
-        dist[i - 1][j - 1] + (int)(x[i - 1] != y[j - 1])
-      });
+      dist[i][j] = min(
+        {
+          dist[i][j - 1] + 1,
+          dist[i - 1][j] + 1,
+          dist[i - 1][j - 1] + (int)(x[i - 1] != y[j - 1])
+        }
+      );
       cout << dist[i][j] << ' ';
     }
     cout << '\n';
@@ -52,8 +53,9 @@ void solve()
 
 int main()
 {
-  cout << "Edit distance: "
+  cout << "Edit distance (recursive): "
        << solve_recursive(x.length() - 1, y.length() - 1)
-       << "\n\n";
+       << "\n\n"
+       << "Iterative:\n";
   solve();
 }

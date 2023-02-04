@@ -1,16 +1,11 @@
+#pragma GCC optimize ("03")
 #include <bits/stdc++.h>
 using namespace std;
-
 
 template <typename T>
 ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, ", "));
-    cout << "\b\b";
-  }
-  out << ']';
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
 
@@ -79,7 +74,6 @@ void valid_solution()
       if ((i - c >= 0) && (dp[i] > dp[i - c] + 1)) {
         dp[i] = dp[i - c] + 1;
         last[i] = c;
-        // cout << c << '\n';
       }
     }
   }

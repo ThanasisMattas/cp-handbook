@@ -1,18 +1,40 @@
+#pragma GCC optimize ("03")
 #include <bits/stdc++.h>
-
 using namespace std;
 
+struct Timer
+{
+  chrono::high_resolution_clock::time_point start, end;
+  string name;
+
+  Timer(string n="")
+  : start(chrono::high_resolution_clock::now()), name(n) {}
+
+  ~Timer()
+  {
+    chrono::duration<float> d = chrono::high_resolution_clock::now() - start;
+    cout << name
+         << string(int(!name.empty()), ' ')
+         << "duration: "
+         << fixed
+         << setprecision(3)
+         << (d.count() * 1000.0f)
+         << "ms"
+         << '\n';
+  }
+};
 
 int w[] = {1, 3, 3, 5};
+const int n = 4;
+const int max_w = 12;
 
 
 // O(nx) time, n: number of values, x: sum
 // O(nx) space
 void solve_1()
 {
-  int n = sizeof(w) / sizeof(w[0]);
-  int max_w = accumulate(w, w + n, 0);
-  // posssible
+  Timer t(__func__);
+
   bool poss[max_w + 1][n + 1];
   memset(poss, false, sizeof(poss));
   poss[0][0] = true;
@@ -54,8 +76,8 @@ void solve_1()
 // O(x)  space
 void solve_2()
 {
-  int n = sizeof(w) / sizeof(w[0]);
-  int max_w = accumulate(w, w + n, 0);
+  Timer t(__func__);
+
   bool poss[max_w + 1];
   memset(poss, false, sizeof(poss));
   poss[0] = true;
