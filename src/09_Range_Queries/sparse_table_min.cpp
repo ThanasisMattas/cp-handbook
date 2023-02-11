@@ -11,9 +11,11 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 
 vector<int> v{1, 3, 4, 8, 6, 1, 4, 2};
+const int n = 8;
 // Precalculated min queries sparse table.
 //   - Each row intex corresponds to a power of 2.
-//   - Each index of a row corresponds to the first limit of the subset (a).
+//   - Each index of a row corresponds to the first limit of the subset, a.
+//     The second limit is implied, b = a + w - 1.
 //   - Each row entry corresponds to the min_q(a, b).
 vector<vector<int> > table;
 
@@ -22,7 +24,6 @@ vector<vector<int> > table;
 // nlog(n)
 void populate_table()
 {
-  int n = v.size();
   // number of rows of the sparse table
   int m = (int)log2(n);
 
@@ -61,15 +62,14 @@ void populate_table()
 // nlog(n)
 void populate_table_dp()
 {
-  int n = v.size();
   // number of rows of the sparse table
-  int m = (int)log2(n);
+  int m = (int)log2(n) + 1;
 
   // 0th power of 2
   table.push_back(v);
 
   // 1st-mth powers of 2
-  for (int p = 1; p <= m; ++p) {
+  for (int p = 1; p < m; ++p) {
     // window length
     int w = 1 << p;
     int row_len = n - w + 1;
@@ -102,12 +102,12 @@ void solve()
   // populate_table();
   populate_table_dp();
   print_table();
+  cout << v << "\n\n";
 
   int q;
   int a, b;
   cout << "Number of queries: ";
   cin >> q;
-  cout << v << "\n\n";
 
   while (q--) {
     cout << "Subset limits: ";
