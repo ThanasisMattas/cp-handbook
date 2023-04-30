@@ -35,7 +35,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 // Timer t(__func__);
 struct Timer
 {
-  chrono::high_resolution_clock::time_point start, end;
+  chrono::high_resolution_clock::time_point start;
   string name;
 
   Timer(string n="")
