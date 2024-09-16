@@ -5,7 +5,10 @@ using namespace std;
 template <typename T>
 ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
+  if (!v.empty()) {
+    copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
+    cout << "\b";
+  }
   return out;
 }
 
