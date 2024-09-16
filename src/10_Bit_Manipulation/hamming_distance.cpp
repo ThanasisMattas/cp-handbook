@@ -4,9 +4,19 @@ using namespace std;
 
 const int n = 10;
 const int k = 8;
-stringstream input;
-unsigned long arr[n];
-// string bit_strings[n];
+
+string bitstr[n] = {
+  "01110001",
+  "10100101",
+  "11101001",
+  "01001001",
+  "10101111",
+  "01100111",
+  "10111101",
+  "01010101",
+  "10110001",
+  "11111000"
+};
 
 
 // O(k)
@@ -26,49 +36,21 @@ int hamming(unsigned long a, unsigned long b)
 }
 
 
-int solve()
+void solve()
 {
+  // max possible
   int best = k;
   for (int i = 0; i < n - 1; ++i) {
     for (int j = i + 1; j < n; ++j) {
-      // int d = hamming(bit_string[i], bit_string[j]);
-      int d = hamming(arr[i], arr[j]);
+      int d = hamming(
+        std::stoi(bitstr[i], nullptr, 2),  // probably O(k)
+        std::stoi(bitstr[j], nullptr, 2)
+      );
       best = min(best, d);
     }
   }
-  return best;
+  cout << "min Hamming distance: " << best << '\n';
 }
 
 
-void populate_input()
-{
-  string bstrs[n] = {"01110001",
-                     "10100101",
-                     "11101001",
-                     "01001001",
-                     "10101111",
-                     "01100111",
-                     "10111101",
-                     "01010101",
-                     "10110001",
-                     "11111000"};
-
-  for (int i = 0; i < n; ++i) {
-    input << bstrs[i] << ' ';
-  }
-}
-
-
-int main()
-{
-  populate_input();
-
-  bitset<k> bset;
-  for (int i = 0; i < n; ++i) {
-    // cin >> bit_strings[i];
-    input >> bset;
-    arr[i] = bset.to_ulong();
-  }
-
-  cout << "min Hamming distance: " << solve() << '\n';
-}
+int main() {solve();}
