@@ -7,8 +7,10 @@ const int N = 64;
 int color[n][n];
 long long color_bset[n][n / N];
 
-random_device rd;
-mt19937_64 eng(rd());
+// random_device rd;
+// mersenne_twister_engine
+mt19937_64 rng(time(nullptr));
+// std::uniform_int_distribution<> distrib(1, 6);
 uniform_int_distribution<long long> dist;
 
 
@@ -48,9 +50,8 @@ int bit_optimization()
 
 int main()
 {
-  srand(time(NULL));
   generate(color[0], color[0] + n * n, [](){return rand() % 2;});
-  generate(color_bset[0], color_bset[0] + n * n / N, [](){return dist(eng);});
+  generate(color_bset[0], color_bset[0] + n * n / N, [](){return dist(rng);});
 
   for (int i = 0; i < n; ++i)
     for (int j = 0; j < n; ++j)

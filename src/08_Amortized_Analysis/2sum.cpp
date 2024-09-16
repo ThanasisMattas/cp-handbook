@@ -1,11 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
+// TODO: 3sum (O(n^2))
 
 
 vector<int> v{9, 4, 6, 1, 9, 5, 10, 7};
 const int x = 12;
 
 
+// O(nlogn) because of sorting (the rest is amortized O(n))
 void solve()
 {
   sort(v.begin(), v.end());
@@ -25,7 +27,4 @@ void solve()
 
 
 
-int main()
-{
-  solve();
-}
+int main() {solve();}

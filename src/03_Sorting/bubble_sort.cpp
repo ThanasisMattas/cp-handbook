@@ -14,6 +14,9 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 vector<int> v{-1, 2, 4, -3, 5, 2, -5, 2};
 
 
+// The nested loop is condemned to run to the end, even if the array is
+// sorted sooner. With the following impl, the outer loop breaks if no
+// more swaps are possible, meaning that the array is already sorted.
 void bubble_sort()
 {
   bool swapped = true;

@@ -16,7 +16,7 @@ const int n = 8;
 //   - Each row intex corresponds to a power of 2.
 //   - Each index of a row corresponds to the first limit of the subset, a.
 //     The second limit is implied, b = a + w - 1.
-//   - Each row entry corresponds to the min_q(a, b).
+//   - Each row item corresponds to the min_q(a, b).
 vector<vector<int> > table;
 
 

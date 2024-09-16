@@ -5,10 +5,7 @@ using namespace std;
 template <typename T>
 ostream& operator<<(ostream& out, const vector<T>& v)
 {
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-    cout << "\b";
-  }
+  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
   return out;
 }
 
@@ -16,6 +13,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 vector<int> v{1, 3, 4, 2, 5, 3, 4, 2, 0, 1};
 
 
+// amortized O(n)
 void solve()
 {
   cout << v << '\n';

@@ -71,7 +71,7 @@ void valid_solution()
 
   for (int i = 1; i <= n; ++i) {
     for (auto c: coins) {
-      if ((i - c >= 0) && (dp[i] > dp[i - c] + 1)) {
+      if ((i - c >= 0) && (dp[i - c] + 1 < dp[i])) {
         dp[i] = dp[i - c] + 1;
         last[i] = c;
       }

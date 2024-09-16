@@ -5,7 +5,7 @@ using namespace std;
 //              1
 //        2           3
 //    4       5   6       7
-// 8     9            12
+// 8     9                   12
 //     10 11
 const int n = 12;
 vector<int> adj[n + 1] = {

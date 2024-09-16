@@ -49,20 +49,23 @@ int total[1 << k][n];
 // O(nk2^k)
 void solve_dp()
 {
-  // 0th day
-  for (int d = 0; d < n; ++d) total[0][d] = 0;
+  // dp initialization
+  // 0 total cost for empty subset at any day
+  fill(total[0], total[0] + n, 0);
+  // we can only pick one item at the 0th day
   for (int s = 1; s < (1 << k); ++s) {
     // if s is a single-item set
+    // if (__builtin_popcount(s) == 1) {
     if ((s & (s - 1)) == 0) {
       total[s][0] = price[(int)log2(s)][0];
-      continue;
+    } else {
+      // if s is a multi-item set, buy the cheapest product at day 0
+      int best = INT_MAX;
+      for (int x = 0; x < k; ++x) {
+        if (s & (1 << x)) best = min(best, price[x][0]);
+      }
+      total[s][0] = best;
     }
-    // if s is a multi-item set, buy the cheapest product at day 0
-    int best = INT_MAX;
-    for (int x = 0; x < k; ++x) {
-      if (s & (1 << x)) best = min(best, price[x][0]);
-    }
-    total[s][0] = best;
   }
 
   // rest of the days
@@ -82,7 +85,8 @@ void solve_dp()
 }
 
 
-int main() {
+int main()
+{
   solve_dp();
   cout << "dp: " << total[(1 << k) - 1][n - 1] << '\n';
   cout << "recursion: " << solve_rec((1 << k) - 1, n - 1) << '\n';

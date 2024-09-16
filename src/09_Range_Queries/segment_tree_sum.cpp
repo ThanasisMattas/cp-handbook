@@ -15,16 +15,12 @@ vector<int> v{5, 8, 6, 3, 2, 7, 2, 6};
 vector<int> tree(2 * n);
 
 
-// amortized O(n)
+// O(n)
 void populate_tree()
 {
   copy(v.begin(), v.end(), tree.begin() + n);
-
-  for (int i = 1; i <= (int)log2(n); ++i) {
-    for(int j = (n >> i); j < (n >> (i - 1)); ++j) {
-      tree[j] = tree[2 * j] + tree[2 * j + 1];
-    }
-  }
+  for (int i = n - 1; i > 0; --i)
+    tree[i] = tree[2 * i] + tree[2 * i + 1];
 }
 
 

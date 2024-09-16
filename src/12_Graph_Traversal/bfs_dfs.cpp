@@ -17,12 +17,11 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 {
-  // discovered
-  bool disc[adj.size()];
+  bool visited[adj.size()];
   int dist[adj.size()];
-  memset(disc, false, sizeof(disc));
+  memset(visited, false, sizeof(visited));
   memset(dist, 0x3f, sizeof(dist));
-  disc[s] = true;
+  visited[s] = true;
   dist[s] = 0;
   vector<int> seq;
   queue<int> q;
@@ -32,8 +31,8 @@ vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
     int u = q.front(); q.pop();
     seq.push_back(u);
     for (auto v : adj[u]) {
-      if (!disc[v]) {
-        disc[v] = true;
+      if (!visited[v]) {
+        visited[v] = true;
         dist[v] = dist[u] + 1;
         q.push(v);
       }
@@ -45,9 +44,9 @@ vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 
 vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
 {
-  bool disc[adj.size()];
-  memset(disc, false, sizeof(disc));
-  disc[s] = true;
+  bool visited[adj.size()];
+  memset(visited, false, sizeof(visited));
+  visited[s] = true;
   stack<int> st;
   st.push(s);
   vector<int> seq;
@@ -56,8 +55,8 @@ vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
     int u = st.top(); st.pop();
     seq.push_back(u);
     for (auto v : adj[u]) {
-      if (!disc[v]) {
-        disc[v] = true;
+      if (!visited[v]) {
+        visited[v] = true;
         st.push(v);
       }
     }
@@ -67,26 +66,26 @@ vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
 
 
 const int n = 100;
-vector<int> adj_list[n + 1];
-bool disc[n + 1];
+vector<int> adj[n + 1];
+bool visited[n + 1];
 
 
 void dfs_rec_graph(int u)
 {
+  if (visited[u]) return;
+  visited[u] = true;
   // process u
-  for (auto v : adj_list[u]) {
-    if (disc[v]) continue;
-    disc[v] = true;
+  for (auto v : adj[u]) {
     dfs_rec_graph(v);
   }
 }
 
 
-// No need for discovered flags. Just do not go back to the parent node.
+// No need for visitedovered flags. Just do not go back to the parent node.
 void dfs_rec_tree(int u, int u_prev)
 {
   // process u
-  for (auto u_next : adj_list[u]) {
+  for (auto u_next : adj[u]) {
     if (u_next == u_prev) continue;
     dfs_rec_tree(u_next, u);
   }

@@ -49,11 +49,13 @@ bool bellman_ford(int s)
   dist[s] = 0;
   // If no more updates are happening, the process should terminate there.
   bool halt;
+  int inf = dist[0];
 
+  // each shortest path can contain at most n − 1 edges
   for (int epoch = 1; epoch < n; ++epoch) {
     halt = true;
     for (int u = 1; u <= n; ++u) {
-      if (dist[u] != dist[0]) {
+      if (dist[u] != inf) {
         for (auto& [v, w] : adj[u]) {
           if (dist[v] > dist[u] + w) {
             dist[v] = dist[u] + w;
