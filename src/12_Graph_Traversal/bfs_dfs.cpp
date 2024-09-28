@@ -85,10 +85,9 @@ void dfs_rec_graph(int u)
 void dfs_rec_tree(int u, int u_prev)
 {
   // process u
-  for (auto u_next : adj[u]) {
-    if (u_next == u_prev) continue;
-    dfs_rec_tree(u_next, u);
-  }
+  for (auto u_next : adj[u])
+    if (u_next != u_prev)
+      dfs_rec_tree(u_next, u);
 }
 
 

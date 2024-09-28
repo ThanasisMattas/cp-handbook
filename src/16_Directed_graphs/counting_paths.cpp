@@ -89,7 +89,7 @@ void populate_top_sort()
       break;
     } else if (state[u] == 0) dfs_top_sort(u, 0);
   }
-  // Let's assume there is no cycle, and don't check for that.
+  // Let's assume there is no cycle and don't check for that.
   reverse(top_sort.begin(), top_sort.end());
 }
 

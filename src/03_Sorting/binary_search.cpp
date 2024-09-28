@@ -37,9 +37,15 @@ void binary_search_2()
 {
   int n = v.size();
   int k = 0;
-  for (int b = n / 2; b >= 1; b /= 2)
-    while ((k + b < n) && (v[k + b] <= x)) k += b;
-  if (v[k] == x) cout << k << '\n';
+  for (int b = n / 2; b >= 1; b /= 2) {
+    while ((k + b < n) && (v[k + b] <= x)) {
+      k += b;
+      if (v[k] == x) {
+        cout << k << '\n';
+        break;
+      }
+    }
+  }
 }
 
 

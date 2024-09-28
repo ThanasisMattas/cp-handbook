@@ -41,7 +41,7 @@ void solve()
 {
   for (int u = 1; u <= n; ++u) {
     // A new DFS runs for each node in state 0, in case the previous searches
-    // did not reach it.
+    // did not reach it (multiple connected components).
     if (state[u] == 0) dfs(u, 0);
     else if (state[u] == 1) {
       cycle = true;

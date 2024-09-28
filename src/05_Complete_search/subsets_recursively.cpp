@@ -18,11 +18,10 @@ ostream& operator<<(ostream& out, const vector<int>& v)
 vector<int> subset;
 const int n = 4;
 
-void solve(int k = 0)
+void solve(int k=0)
 {
-  if (k == n) {
-    cout << subset << endl;
-  } else {
+  if (k == n) cout << subset << '\n';
+  else {
     solve(k + 1);
     subset.push_back(k);
     solve(k + 1);

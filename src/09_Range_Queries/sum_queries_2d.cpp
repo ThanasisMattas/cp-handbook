@@ -40,11 +40,12 @@ int rand_int() {return rand() % x;}
 // O(n^2) (linear with the input size)
 void populate_psm()
 {
-  // Populate first row and first column
+  // populate the first row
   partial_sum(v[0].begin(), v[0].end(), psm[0].begin());
+  // populate the first column
   for (int i = 1; i < n; ++i)
     psm[i][0] = psm[i - 1][0] + v[i][0];
-  // Populate the rest
+  // populate the rest
   for (int i = 1; i < n; ++i)
     for (int j = 1; j < n; ++j)
       psm[i][j] = psm[i - 1][j] + psm[i][j - 1] - psm[i - 1][j - 1] + v[i][j];

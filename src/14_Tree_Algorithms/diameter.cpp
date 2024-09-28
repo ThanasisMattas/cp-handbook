@@ -25,8 +25,6 @@ vector<int> adj[n + 1] = {
 };
 // len to the farthest leaf
 int to_leaf[n + 1] = {0};
-// the farthest leaf
-int leaf[n + 1];
 // max len of the paths with the i node as the highest point
 int max_len[n + 1] = {0};
 
@@ -59,6 +57,10 @@ void solve_highest_point(int u, int u_prev)
     }
   }
 }
+
+
+// the farthest leaf
+int leaf[n + 1];
 
 
 // O(n)
