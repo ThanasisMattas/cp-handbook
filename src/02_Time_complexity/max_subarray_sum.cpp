@@ -16,3 +16,41 @@ void solve()
   }
   cout << best << '\n';
 }
+
+
+// O(n)
+void max_subarray()
+{
+  int sum = 0;
+  int best = -1e9;
+  vector<int> sub;
+  vector<int> best_sub;
+
+  for (int& x : v) {
+    sum += x;
+    if (x > sum) {
+      sum = x;
+      sub.clear();
+      sub.push_back(x);
+    } else sub.push_back(x);
+    // cout << setw(2) << x << ' '
+    //      << setw(2) << sum << ' ';
+    // copy(sub.begin(),
+    //      sub.end(),
+    //      ostream_iterator<int>(cout, " "));
+    // cout << '\n';
+
+    if (sum > best) {
+      best = sum;
+      best_sub = sub;
+    }
+  }
+
+  cout << best << '\n';
+  copy(best_sub.begin(),
+       best_sub.end(),
+       ostream_iterator<int>(cout, " "));
+  cout << '\n';
+}
+
+int main() {max_subarray();}
