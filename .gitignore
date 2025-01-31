@@ -42,3 +42,4 @@
 .hidden
 **/.coverage
 **/coverage.xml
+**/tempCodeRunnerFile.*
