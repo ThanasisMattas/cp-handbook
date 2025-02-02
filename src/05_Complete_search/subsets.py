@@ -1,6 +1,7 @@
 v = [2, 4, 5, 9]
 
 
+# O(2^n)
 def solve():
   n = len(v)
   # 1 << n = 15 ({1111} – the complete set)
