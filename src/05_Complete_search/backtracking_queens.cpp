@@ -11,6 +11,27 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 }
 
 
+// diag1
+// –––––
+// y 3 | 3 4 5 6
+//   2 | 2 3 4 5
+//   1 | 1 2 3 4
+//   0 | 0 1 2 3
+//       – – – –
+//       0 1 2 3
+//             x
+
+// diag2
+// –––––
+// y 3 | 6 5 4 3
+//   2 | 5 4 3 2
+//   1 | 4 3 2 1
+//   0 | 3 2 1 0
+//       – – – –
+//       0 1 2 3
+//             x
+
+
 const int n = 4;
 int counter = 0;
 vector<int> column(n), diag1(2 * n - 1), diag2(2 * n - 1);

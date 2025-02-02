@@ -21,15 +21,16 @@ perm = []
 def solve_recursively():
   if len(perm) == n:
     print(perm)
-  else:
-    for i in range(n):
-      if chosen[i]:
-        continue
-      chosen[i] = True
-      perm.append(i)
-      solve_recursively()
-      chosen[i] = False
-      perm.pop()
+    return
+
+  for i in range(n):
+    if chosen[i]:
+      continue
+    chosen[i] = True
+    perm.append(i)
+    solve_recursively()
+    chosen[i] = False
+    perm.pop()
 
 
 if __name__ == '__main__':
