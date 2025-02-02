@@ -42,3 +42,14 @@ def solve(y):
 if __name__ == '__main__':
   solve(0)
   print(counter)
+  assert counter == 2
+
+  n = 8
+  counter = 0
+  col = [0] * n
+  diag1 = [0] * (2 * n - 1)
+  diag2 = [0] * (2 * n - 1)
+
+  solve(0)
+  print(counter)
+  assert counter == 92
