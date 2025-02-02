@@ -4,7 +4,10 @@ from itertools import permutations
 n = 3
 
 
-# O(n!)
+# * r = None (defaults to n)
+#     O(n!)
+# * r < n, as given from math.perm(n, r):
+#     O(n! / (n - r)!)
 def solve(r=None):
   for perm in permutations(range(n), r):
     print(perm)
