@@ -26,6 +26,22 @@ diag1 = [0] * (2 * n - 1)
 diag2 = [0] * (2 * n - 1)
 
 
+# O(n!)
+#
+# Explanation
+# -----------
+# Choice at each row:
+#   * y = 0: N choices (N columns)
+#   * y = 1: at most N-1 choices (prunning the col we placed a queen previously
+#     which attacks the corresponding square of the current row)
+#   * y = 2: at most N-2 choices, and so on.
+#
+# This forms a branching factor that constructs a factorial:
+#                   N * (N-1) * (N-2) * ... * 1 = N!
+#
+# However, the solution also considers diagonals to prune more invalid
+# placements early, resulting to O(N! / N^c) for some constant c, but this does
+# not change the factorial growth rate.
 def solve(y=0):
   if y == n:
     global counter
@@ -38,6 +54,7 @@ def solve(y=0):
     col[x] = diag1[x + y] = diag2[n - 1 - x + y] = 1
     solve(y + 1)
     col[x] = diag1[x + y] = diag2[n - 1 - x + y] = 0
+
 
 if __name__ == '__main__':
   solve()
