@@ -12,6 +12,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 vector<int> coins{2, 3, 4};
 int dp[100000];
+bool ready[100000];
 
 
 int solve_recursive(int x)
@@ -31,12 +32,13 @@ int solve_memoization_recursive(int x)
 {
   if (x < 0) return 2e9;
   if (x == 0) return 0;
-  if (dp[x]) return dp[x];
+  if (ready[x]) return dp[x];
 
   int best = 2e9;
   for (auto c : coins)
     best = min(best, solve_memoization_recursive(x - c) + 1);
   dp[x] = best;
+  ready[x] = true;
   return best;
 }
 
