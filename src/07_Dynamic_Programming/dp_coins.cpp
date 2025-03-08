@@ -11,8 +11,7 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 
 vector<int> coins{2, 3, 4};
-const int n = 10;
-int dp[n + 1];
+int dp[100000];
 
 
 int solve_recursive(int x)
@@ -43,33 +42,33 @@ int solve_memoization_recursive(int x)
 
 
 // Same complexity with mem-rec, O(xn), but with smaller constants.
-void solve_memoization_iterative()
+void solve_memoization_iterative(int x)
 {
   memset(dp, 0x3f, sizeof(dp));
   dp[0] = 0;
 
-  for (int i = 1; i <= n; ++i) {
+  for (int i = 1; i <= x; ++i) {
     for (auto c : coins) {
       if (i - c >= 0) {
         dp[i] = min(dp[i], dp[i - c] + 1);
       }
     }
   }
-  cout << dp[n] << '\n';
+  cout << dp[x] << '\n';
 }
 
 
 // last coin to form the ith dp
-int last[n + 1];
+int last[100000];
 
 
 // O(xn)
-void valid_solution()
+void valid_solution(int x)
 {
   memset(dp, 0x3f, sizeof(dp));
   dp[0] = 0;
 
-  for (int i = 1; i <= n; ++i) {
+  for (int i = 1; i <= x; ++i) {
     for (auto c: coins) {
       if ((i - c >= 0) && (dp[i - c] + 1 < dp[i])) {
         dp[i] = dp[i - c] + 1;
@@ -77,9 +76,9 @@ void valid_solution()
       }
     }
   }
-  cout << dp[n] << '\n';
+  cout << dp[x] << '\n';
 
-  int k = n;
+  int k = x;
   while (k) {
     cout << last[k] << ' ';
     k -= last[k];
@@ -89,11 +88,11 @@ void valid_solution()
 
 
 // One solution for 0th value: 0 coins
-int counter[n + 1] = {1};
+int counter[100000] = {1};
 
 
 // O(xn)
-void count_solutions()
+void count_solutions(int x)
 {
   // coins: 2 3 4   n: 10
 
@@ -103,25 +102,26 @@ void count_solutions()
   // 3 3 2 2   4 2 2 2
   // 3 2 3 2
   // 3 2 2 3
-  for (int i = 1; i <= n; ++i) {
+  for (int i = 1; i <= x; ++i) {
     for (auto c : coins) {
       if (i - c >= 0) {
         counter[i] += counter[i - c];
       }
     }
   }
-  cout << counter[n] << '\n';
+  cout << counter[x] << '\n';
 }
 
 
 int main()
 {
-  cout << solve_recursive(n) << '\n';
+  int x = 10;
+  cout << solve_recursive(x) << '\n';
 
   memset(dp, 0, sizeof(dp));
-  cout << solve_memoization_recursive(n) << '\n';
+  cout << solve_memoization_recursive(x) << '\n';
 
-  solve_memoization_iterative();
-  valid_solution();
-  count_solutions();
+  solve_memoization_iterative(x);
+  valid_solution(x);
+  count_solutions(x);
 }
