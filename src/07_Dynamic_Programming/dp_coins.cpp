@@ -11,8 +11,9 @@ ostream& operator<<(ostream& out, const vector<T>& v)
 
 
 vector<int> coins{2, 3, 4};
-int dp[100000];
-bool ready[100000];
+const int n = 100000;
+int dp[n];
+bool ready[n];
 
 
 int solve_recursive(int x)
@@ -48,8 +49,8 @@ void solve_memoization_iterative(int x)
 {
   for (int i = 1; i <= x; ++i) {
     for (auto c : coins) {
-      if (i - c >= 0) {
-        dp[i] = min(dp[i], dp[i - c] + 1);
+      if ((i - c >= 0) && (dp[i - c] + 1 < dp[i])) {
+        dp[i] = dp[i - c] + 1;
       }
     }
   }
@@ -58,7 +59,7 @@ void solve_memoization_iterative(int x)
 
 
 // last coin to form the ith dp
-int last[100000];
+int last[n];
 
 
 // O(xn)
@@ -84,7 +85,7 @@ void valid_solution(int x)
 
 
 // One solution for 0th value: 0 coins
-int counter[100000] = {1};
+int counter[n] = {1};
 
 
 // O(xn)
