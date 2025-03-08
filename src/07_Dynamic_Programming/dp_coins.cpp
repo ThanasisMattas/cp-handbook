@@ -27,7 +27,7 @@ int solve_recursive(int x)
 }
 
 
-// O(xn) ,  x: value, n: num_coins
+// O(xn),  x: value, n: num_coins
 int solve_memoization_recursive(int x)
 {
   if (x < 0) return 2e9;
@@ -46,9 +46,6 @@ int solve_memoization_recursive(int x)
 // Same complexity with mem-rec, O(xn), but with smaller constants.
 void solve_memoization_iterative(int x)
 {
-  memset(dp, 0x3f, sizeof(dp));
-  dp[0] = 0;
-
   for (int i = 1; i <= x; ++i) {
     for (auto c : coins) {
       if (i - c >= 0) {
@@ -67,9 +64,6 @@ int last[100000];
 // O(xn)
 void valid_solution(int x)
 {
-  memset(dp, 0x3f, sizeof(dp));
-  dp[0] = 0;
-
   for (int i = 1; i <= x; ++i) {
     for (auto c: coins) {
       if ((i - c >= 0) && (dp[i - c] + 1 < dp[i])) {
@@ -123,7 +117,13 @@ int main()
   memset(dp, 0, sizeof(dp));
   cout << solve_memoization_recursive(x) << '\n';
 
+  memset(dp, 0x3f, sizeof(dp));
+  dp[0] = 0;
   solve_memoization_iterative(x);
+
+  memset(dp, 0x3f, sizeof(dp));
+  dp[0] = 0;
   valid_solution(x);
+
   count_solutions(x);
 }
