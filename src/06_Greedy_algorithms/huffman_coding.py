@@ -1,5 +1,4 @@
 from collections import Counter
-from operator import itemgetter
 
 
 text = "AABACDACA"
@@ -30,13 +29,9 @@ class BTree:
 
 
 def solve():
-  # [('B', 1), ('D', 1), ('C', 2), ('A', 5)]
-  counter = sorted(Counter(text).items(), key=itemgetter(1))
   head = None
-
-  for entry in counter:
+  for entry in reversed(Counter(text).most_common()):
     head = BTree.insert(head, Node(entry[0]))
-
   BTree.print_code(head)
 
 
