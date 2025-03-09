@@ -1,6 +1,12 @@
 from bisect import bisect_left
 import random
 
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils import time_this
+
+
 n = 8000
 v = random.choices(range(n), k=n)
 
@@ -10,6 +16,7 @@ v = random.choices(range(n), k=n)
 
 
 # O(n^2)
+@time_this
 def solve1():
   length = [1] * n
   best = 1
@@ -26,6 +33,7 @@ def solve1():
 
 # O(nlogn)
 # (maybe too advanced for CP)
+@time_this
 def solve2():
   # Holds the LIS, but it won’t necessarily store the exact sequence, just the
   # values that could form the LIS. The last part of this vector will be popu-
