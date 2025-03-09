@@ -31,6 +31,11 @@ struct Timer
 
 const int n = 8000;
 vector<int> v(n);  // {6, 2, 5, 7, 4, 8, 3};
+
+// uncomment all comments for explanation
+// vector<int> v{6, 2, 5, 1, 7, 4, 8, 3};
+// const int n = v.size();
+
 vector<int> len(n, 1);
 
 
@@ -62,12 +67,6 @@ vector<int> seq(n);
 void solve2()
 {
   Timer t(__func__);
-
-  // uncomment all comments for explanation
-  // vector<int> v{6, 2, 5, 1, 7, 4, 8, 3};
-  // int n = v.size();
-  // vector<int> seq(n);
-  // cout << v << '\n';
 
   // length of the populated part of the sequence
   int seq_len = 1;
