@@ -1,28 +1,6 @@
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-
-template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-    out << '\b';
-  }
-  return out;
-}
-
-
-template <typename T>
-ostream& operator<<(ostream& out, const vector<vector<T> >& v)
-{
-  const size_t n = v.size();
-  if (n > 0) {
-    for (size_t i = 0; i < n - 1; ++i) out << v[i] << '\n';
-    out << v[n - 1];
-  }
-  return out;
-}
 
 
 const int n = 5;

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
 
 vector<int> v{-1, 2, 4, -3, 5, 2, -5, 2};
 
@@ -35,10 +35,7 @@ void max_subarray()
     } else sub.push_back(x);
     // cout << setw(2) << x << ' '
     //      << setw(2) << sum << ' ';
-    // copy(sub.begin(),
-    //      sub.end(),
-    //      ostream_iterator<int>(cout, " "));
-    // cout << '\n';
+    // cout << sub << '\n';
 
     if (sum > best) {
       best = sum;
@@ -47,10 +44,7 @@ void max_subarray()
   }
 
   cout << best << '\n';
-  copy(best_sub.begin(),
-       best_sub.end(),
-       ostream_iterator<int>(cout, " "));
-  cout << '\n';
+  cout << best_sub << '\n';
 }
 
 int main() {max_subarray();}

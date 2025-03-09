@@ -1,13 +1,6 @@
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-
-template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-  return out;
-}
 
 
 vector<int> v{1, 3, 4, 8, 6, 1, 4, 2};

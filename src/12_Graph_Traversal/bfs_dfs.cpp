@@ -1,18 +1,6 @@
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-
-template<typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<int>(out, ", "));
-    out << "\b\b";
-  }
-  out << ']';
-  return out;
-}
 
 
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)

@@ -1,14 +1,7 @@
 #pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-
-template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-  return out;
-}
 
 
 const vector<int> v{2, 4, 5, 9};

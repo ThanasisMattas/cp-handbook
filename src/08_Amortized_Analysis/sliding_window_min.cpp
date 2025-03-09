@@ -1,31 +1,6 @@
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-
-template <typename T>
-ostream& operator<<(ostream& out, vector<T>& v)
-{
-  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(cout, " "));
-  return out;
-}
-
-
-template <typename T>
-ostream& operator<<(ostream& out, queue<T>& q)
-{
-  out << '[';
-  if (!q.empty()) {
-    size_t sz = q.size();
-    while (sz--) {
-      T x = q.front(); q.pop();
-      out << x << ' ';
-      q.push(x);
-    }
-    out << '\b';
-  }
-  out << ']';
-  return out;
-}
 
 
 vector<int> v{2, 1, 4, 5, 3, 4, 1, 2};
@@ -36,10 +11,11 @@ queue<int> q;
 
 void print_min(int i)
 {
-  cout << "min of window [ ";
+  cout << "min of window [";
   copy(v.begin() + i - w + 1,
        v.begin() + i + 1,
        ostream_iterator<int>(cout, " "));
+  cout << '\b';
   cout << "] with queue " << q << string(2 * w - 2 * q.size(), ' ')
        << " is " << q.front() << '\n';
 }

@@ -1,28 +1,8 @@
 #pragma GCC optimize ("03")
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
 
-struct Timer
-{
-  chrono::high_resolution_clock::time_point start, end;
-  string name;
-
-  Timer(string n="")
-  : start(chrono::high_resolution_clock::now()), name(n) {}
-
-  ~Timer()
-  {
-    chrono::duration<float> d = chrono::high_resolution_clock::now() - start;
-    cout << name
-         << string(int(!name.empty()), ' ')
-         << "duration: "
-         << fixed
-         << setprecision(3)
-         << (d.count() * 1000.0f)
-         << "ms"
-         << '\n';
-  }
-};
 
 int w[] = {1, 3, 3, 5};
 const int n = 4;

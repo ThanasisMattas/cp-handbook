@@ -1,32 +1,7 @@
 #pragma GCC optimize ("03")
 #include <bits/stdc++.h>
+#include "../compete.hpp"
 using namespace std;
-
-template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  if (!v.empty()) copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-  return out;
-}
-
-struct Timer
-{
-  chrono::high_resolution_clock::time_point start, end;
-  string name;
-
-  Timer(string n="")
-  : start(chrono::high_resolution_clock::now()), name(n) {}
-
-  ~Timer()
-  {
-    chrono::duration<float> d = chrono::high_resolution_clock::now() - start;
-    cout << name
-         << string(int(!name.empty()), ' ')
-         << "duration: "
-         << (d.count() * 1000.0f)
-         << '\n';
-  }
-};
 
 
 const int n = 8000;

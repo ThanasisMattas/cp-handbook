@@ -1,22 +1,11 @@
 #include <bits/stdc++.h>
-
+#include "../compete.hpp"
 using namespace std;
-
-
-ostream& operator<<(ostream& out, const vector<int>& v)
-{
-  out << '[';
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<int>(out, ", "));
-    out << "\b\b";
-  }
-  out << ']';
-  return out;
-}
 
 
 vector<int> subset;
 const int n = 4;
+
 
 void solve(int k=0)
 {
@@ -28,6 +17,9 @@ void solve(int k=0)
     subset.pop_back();
   }
 }
+
+
+int main() {solve();}
 
 
 // Unpacking the recursion
@@ -154,9 +146,3 @@ void solve(int k=0)
 //     subset.pop_back();               // []
 //   }
 // }
-
-
-int main()
-{
-  solve();
-}
