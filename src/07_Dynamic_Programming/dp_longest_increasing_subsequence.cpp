@@ -83,7 +83,7 @@ void solve2()
 
 int main() {
   iota(v.begin(), v.end(), 0);
-  random_shuffle(v.begin(), v.end());
+  shuffle(v.begin(), v.end(), default_random_engine());
   solve1();
   solve2();
 }
