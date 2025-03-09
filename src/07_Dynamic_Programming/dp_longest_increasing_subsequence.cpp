@@ -50,21 +50,24 @@ void solve1()
   cout << best << '\n';
 }
 
-
+// Holds the LIS, but it won’t necessarily store the exact sequence, just the
+// values that could form the LIS. The last part of this vector will be popu-
+// lated with the last items of the current LIS, whereas the first part will
+// start bulding a prospect LIS that will potentially overthrow the current.
 vector<int> seq(n);
 
 
 // O(nlogn)
+// (maybe too advanced for CP)
 void solve2()
 {
   Timer t(__func__);
 
   // uncomment all comments for explanation
   // vector<int> v{6, 2, 5, 1, 7, 4, 8, 3};
-  // const int n = 8;
+  // int n = v.size();
   // vector<int> seq(n);
   // cout << v << '\n';
-  // cout << seq << '\n';
 
   // length of the populated part of the sequence
   int seq_len = 1;
