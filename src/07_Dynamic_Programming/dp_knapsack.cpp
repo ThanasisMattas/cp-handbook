@@ -7,6 +7,7 @@ using namespace std;
 int w[] = {1, 3, 3, 5};
 const int n = 4;
 const int max_w = 12;
+bool poss_x_k[max_w + 1][n + 1];
 
 
 // O(nx) time, n: number of values, x: sum
@@ -15,9 +16,9 @@ void solve_1()
 {
   Timer t(__func__);
 
-  bool poss[max_w + 1][n + 1];
-  memset(poss, false, sizeof(poss));
-  poss[0][0] = true;
+  memset(poss_x_k, false, sizeof(poss_x_k));
+  // 0 total weight is possible with 0 weights
+  poss_x_k[0][0] = true;
 
   for (int k = 1; k <= n; ++k) {
     for (int x = 0; x <= max_w; ++x) {
@@ -25,12 +26,15 @@ void solve_1()
       // sponds to no weights. Namely, the 1st index of poss corresponds to
       // the 0th weight at w.
       if (x - w[k - 1] >= 0)
-        poss[x][k] |= poss[x - w[k - 1]][k - 1];
-      poss[x][k] |= poss[x][k - 1];
+      poss_x_k[x][k] |= poss_x_k[x - w[k - 1]][k - 1];
+      poss_x_k[x][k] |= poss_x_k[x][k - 1];
     }
   }
+}
 
-  // Optional printing block:
+
+void print_solve_1()
+{
   cout << "  | ";
   for (int x = 0; x <= max_w; ++x) {
     cout << right << setw(2) << x << ' ';
@@ -38,18 +42,21 @@ void solve_1()
   cout << '\n';
   cout << "0 | ";
   for (int x = 0; x <= max_w; ++x) {
-    cout << right << setw(2) << (poss[x][0] ? "X": " ") << ' ';
+    cout << right << setw(2) << (poss_x_k[x][0] ? "X": " ") << ' ';
   }
   cout << '\n';
 
   for (int k = 1; k <= n; ++k) {
     cout << w[k - 1] << " | ";
     for (int x = 0; x <= max_w; ++x) {
-      cout << right << setw(2) << (poss[x][k] ? "X": " ") << ' ';
+      cout << right << setw(2) << (poss_x_k[x][k] ? "X": " ") << ' ';
     }
     cout << '\n';
   }
 }
+
+
+bool poss_x[max_w + 1];
 
 
 // O(nx) time, n: number of values, x: sum
@@ -58,16 +65,18 @@ void solve_2()
 {
   Timer t(__func__);
 
-  bool poss[max_w + 1];
-  memset(poss, false, sizeof(poss));
-  poss[0] = true;
+  memset(poss_x, false, sizeof(poss_x));
+  // 0 total weight is possible with 0 weights
+  poss_x[0] = true;
 
   for (int k = 0; k < n; ++k)
     for (int x = max_w; x >= 0; --x)
-      if (poss[x])
-        poss[x + w[k]] = true;
+      if (poss_x[x])
+        poss_x[x + w[k]] = true;
+}
 
-  // Optional printing block:
+void print_solve_2()
+{
   cout << "  | ";
   for (int x = 0; x <= max_w; ++x) {
     cout << right << setw(2) << x << ' ';
@@ -76,7 +85,7 @@ void solve_2()
 
   cout << "  | ";
   for (int x = 0; x <= max_w; ++x) {
-    cout << right << setw(2) << (poss[x] ? "X": " ") << ' ';
+    cout << right << setw(2) << (poss_x[x] ? "X": " ") << ' ';
   }
   cout << '\n';
 }
@@ -85,6 +94,8 @@ void solve_2()
 int main()
 {
   solve_1();
+  print_solve_1();
   cout << '\n';
   solve_2();
+  print_solve_2();
 }
