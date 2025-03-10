@@ -68,5 +68,6 @@ def max_sum_subarray():
 
 if __name__ == '__main__':
   print(v)
+  print("max subarray sum:", solve_1())
   print("max subarray sum:", solve_2())
   print("max sum subarray:", max_sum_subarray())
