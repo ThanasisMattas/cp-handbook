@@ -10,7 +10,7 @@ const int max_w = 12;
 bool poss_x_k[max_w + 1][n + 1];
 
 
-// O(nx) time, n: number of values, x: sum
+// O(nx) time, n: number of weights, x: max-sum
 // O(nx) space
 void solve_1()
 {
@@ -26,7 +26,7 @@ void solve_1()
       // sponds to no weights. Namely, the 1st index of poss corresponds to
       // the 0th weight at w.
       if (x - w[k - 1] >= 0)
-      poss_x_k[x][k] |= poss_x_k[x - w[k - 1]][k - 1];
+        poss_x_k[x][k] |= poss_x_k[x - w[k - 1]][k - 1];
       poss_x_k[x][k] |= poss_x_k[x][k - 1];
     }
   }
@@ -59,7 +59,7 @@ void print_solve_1()
 bool poss_x[max_w + 1];
 
 
-// O(nx) time, n: number of values, x: sum
+// O(nx) time, n: number of weights, x: max-sum
 // O(x)  space
 void solve_2()
 {
