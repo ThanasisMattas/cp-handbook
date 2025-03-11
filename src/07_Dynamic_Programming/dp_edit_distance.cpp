@@ -6,6 +6,7 @@ const string x = "love";
 const string y = "movie";
 
 
+//  O(3^min(n, m))
 int solve_recursive(int a, int b)
 {
   if (a == 0 || b == 0) return a + b + (int)(x[0] != y[0]);
