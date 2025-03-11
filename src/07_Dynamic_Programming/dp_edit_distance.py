@@ -11,6 +11,7 @@ y = "movie"
 # e 4
 
 
+# O(3^min(n, m))
 def solve_rec(a, b):
   if a == 0:
     return b
