@@ -39,10 +39,10 @@ def solve_1d():
   # 0 total weight is possible with 0 weights
   possible[0] = True
 
-  for k in range(n):
+  for w in weights:
     for x in range(max_w, -1, -1):
       if possible[x]:
-        possible[x + weights[k]] = True
+        possible[x + w] = True
 
   return possible
 
