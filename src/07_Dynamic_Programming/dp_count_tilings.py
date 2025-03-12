@@ -1,4 +1,5 @@
 from functools import lru_cache
+from math import ceil, cos, pi
 
 import os
 import sys
@@ -80,6 +81,18 @@ def test_solve():
   assert solve(4, 7) == 781
 
 
+# O(nm)
+@time_this
+def solve_direct_formula(n, m):
+  ans = 1
+  for a in range(1, ceil(n / 2) + 1):
+    for b in range(1, ceil(m / 2) + 1):
+      x = cos(pi * a / (n + 1))
+      y = cos(pi * b / (m + 1))
+      ans *= 4 * (x ** 2 + y ** 2)
+  return int(ans)
+
+
 if __name__ == '__main__':
   test_solve()
   n, m = 6, 8
@@ -89,6 +102,9 @@ if __name__ == '__main__':
   print()
   print("Without DP:")
   count_dp = timed_solve(n, m, maxsize=1)
-  assert count == count_dp
+  print()
+  print("Direct formula:")
+  count_direct = solve_direct_formula(n, m)
+  assert count == count_dp == count_direct
   print()
   print(f"n: {n}  m: {m}  count: {count}")
