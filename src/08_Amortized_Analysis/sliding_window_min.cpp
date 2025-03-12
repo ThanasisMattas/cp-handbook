@@ -21,6 +21,7 @@ void print_min(int i)
 }
 
 
+// O(n)
 void solve()
 {
   cout << v << '\n';
@@ -32,7 +33,7 @@ void solve()
   print_min(w - 1);
 
   for (size_t i = w; i < n; ++i) {
-    // pop , if it fell out of the window
+    // pop front, if it fell out of the window
     if (q.size() == w) q.pop();
 
     while((!q.empty()) && (q.front() >= v[i])) q.pop();
