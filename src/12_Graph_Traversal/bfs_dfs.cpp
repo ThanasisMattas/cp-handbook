@@ -3,6 +3,7 @@
 using namespace std;
 
 
+// O(V+E), V: num vertices  E: num edges
 vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 {
   bool visited[adj.size()];
@@ -30,6 +31,7 @@ vector<int> bfs(const vector<unordered_set<int> >& adj, int s)
 }
 
 
+// O(V+E), V: num vertices  E: num edges
 vector<int> dfs(const vector<unordered_set<int> >& adj, int s)
 {
   bool visited[adj.size()];
@@ -69,7 +71,7 @@ void dfs_rec_graph(int u)
 }
 
 
-// No need for visitedovered flags. Just do not go back to the parent node.
+// No need for visited flag. Just do not go back to the parent node.
 void dfs_rec_tree(int u, int u_prev)
 {
   // process u
