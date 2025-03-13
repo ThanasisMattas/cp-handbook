@@ -7,6 +7,7 @@ v = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
 psm = [[0 for _ in range(m)] for _ in range(n)]
 
 
+# O(nm)
 def populate_psm():
   psm[0][0] = v[0][0]
 
@@ -24,6 +25,7 @@ def populate_psm():
       psm[i][j] += psm[i - 1][j] + psm[i][j - 1] - psm[i - 1][j - 1] + v[i][j]
 
 
+# O(1)
 def solve(x_br, y_br, x_tl, y_tl):
   ans = psm[y_br][x_br]
   if x_tl:
