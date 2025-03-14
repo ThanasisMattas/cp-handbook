@@ -29,9 +29,9 @@ void solve()
   cout << '\n';
 
   cout << "           int x = " << x << " : " << bitset<32>(x) << '\n';
-  cout << "         x | (1 << 3) : " << bitset<32>(x | (1 << 3)) << '\n';
-  cout << "        x & ~(1 << 4) : " << bitset<32>(x & ~(1 << 4)) << '\n';
-  cout << "         x ^ (1 << 2) : " << bitset<32>(x ^ (1 << 2)) << '\n';
+  cout << "force 1: x | (1 << 3) : " << bitset<32>(x | (1 << 3)) << '\n';
+  cout << "force 0:x & ~(1 << 4) : " << bitset<32>(x & ~(1 << 4)) << '\n';
+  cout << "   flip: x ^ (1 << 2) : " << bitset<32>(x ^ (1 << 2)) << '\n';
 
   cout << '\n';
 
@@ -43,6 +43,7 @@ void solve()
   cout << '\n';
   x = 4;
 
+  // y & (x - 1) = y % x
   cout << "            int x = " << x << " : " << bitset<32>(x) << '\n';
   cout << "          x & (x - 1) : " << bitset<32>(x & (x - 1)) << '\n';
   cout << "          5 & (x - 1) : " << bitset<32>(5 & (x - 1)) << '\n';
