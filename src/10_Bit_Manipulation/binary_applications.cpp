@@ -10,11 +10,26 @@ void solve()
   cout << "             UINT_MIN : "
   << bitset<32>(numeric_limits<unsigned>::min())
   << '\n';
+
+  // overflow examples
+  #ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Winteger-overflow"
+  #endif
+
+  #ifdef __GNUC__
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Woverflow"
+  #endif
   cout << "          INT_MAX + 1 : " << bitset<32>(INT_MAX + 1) << '\n';
   cout << "         UINT_MAX + 1 : " << bitset<32>(UINT_MAX + 1) << '\n';
+  #ifdef __clang__
+  #pragma clang diagnostic pop
+  #endif
+
+  #ifdef __GNUC__
   #pragma GCC diagnostic pop
+  #endif
 
   cout << '\n';
   int x = 84;
