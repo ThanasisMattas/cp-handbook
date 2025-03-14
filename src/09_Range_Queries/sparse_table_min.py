@@ -1,6 +1,13 @@
 from math import log2
 
 v = [1, 3, 4, 8, 6, 1, 4, 2]
+# sparse table
+# ------------
+# the p-th row contains min(a, b) values, where:
+#   * table len = int(log2(n) + 1)
+#   * a-b window size: 1 << p
+#   * a in [0, n - window]
+#   * b = a + window - 1
 table = []
 
 
@@ -34,6 +41,8 @@ def print_table():
 
 # O(1)
 def solve(a, b):
+  # exponent of the largest power of 2 that fits in the given range, to be used
+  # as row-index of the sparse table
   p = int(log2(b - a + 1))
   window = 1 << p
   return min(table[p][a], table[p][b - window + 1])
