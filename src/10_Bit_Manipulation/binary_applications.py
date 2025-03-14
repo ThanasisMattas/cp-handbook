@@ -1,6 +1,7 @@
-# print the binary representation of a base 10 integer
 
-def print_bitset(x, size=8):
+def print_bitset(x: int):
+  """Prints the binary representation of a base 10 integer."""
+  size = x.bit_length() + 2
   bitset = ''
   for i in range(size, -1, -1):
     bitset += '1' if x & (1 << i) else '0'
