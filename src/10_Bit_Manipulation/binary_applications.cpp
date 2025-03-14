@@ -8,10 +8,13 @@ void solve()
   cout << "              INT_MIN : " << bitset<32>(INT_MIN) << '\n';
   cout << "             UINT_MAX : " << bitset<32>(UINT_MAX) << '\n';
   cout << "             UINT_MIN : "
-       << bitset<32>(numeric_limits<unsigned>::min())
-       << '\n';
+  << bitset<32>(numeric_limits<unsigned>::min())
+  << '\n';
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Woverflow"
   cout << "          INT_MAX + 1 : " << bitset<32>(INT_MAX + 1) << '\n';
   cout << "         UINT_MAX + 1 : " << bitset<32>(UINT_MAX + 1) << '\n';
+  #pragma GCC diagnostic pop
 
   cout << '\n';
   int x = 84;
