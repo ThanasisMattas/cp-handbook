@@ -96,3 +96,80 @@ if __name__ == '__main__':
   print("parity (1 if popcount is odd, 0 if even)")
   print(">> x.bit_count() % 2")
   print(x.bit_count() % 2)
+  print()
+  print()
+
+  print("empty set")
+  print("x = 0")
+  print()
+
+  x = 0
+  print("create set {1, 3, 4, 8}:")
+  print("x = (1 << 1) | (1 << 3) | (1 << 4) | (1 << 8)")
+  x = (1 << 1) | (1 << 3) | (1 << 4) | (1 << 8)
+  print(x)
+  print(bin(x))
+  print()
+
+  print("x.bit_count()")
+  print(x.bit_count())
+  print()
+
+  print("print subsets - 1")
+  # O(bit_length * 2^bit_length)
+  for b in range(1 << x.bit_length()):
+    if b | x == x:
+      sub = set()
+      for i in range(x.bit_length()):
+        if b & (1 << i):
+          sub.add(i)
+      print(sub)
+  print()
+
+  # alternative (best one) - especially if you have the original set
+  # unpack the set
+  s = []
+  for i in range(x.bit_length()):
+    if x & (1 << i):
+      s.append(i)
+  n = len(s)  # = x.bit_count()
+
+
+  # O(bit_count * 2^bit_count)
+  print("print subsets - 2")
+  for b in range(1 << n):
+    sub = set()
+    for i in range(n):
+      if b & (1 << i):
+        sub.add(s[i])
+    print(sub)
+  print()
+
+  # another alternative
+  # O(bit_count * 2^bit_count)
+  print("print subsets - 3")
+  num_subs = (1 << n) - 1  # 2^bit_count
+  b = 0
+  while True:
+    sub = set()
+    for i in range(n):
+      if b & (1 << i):
+        sub.add(s[i])
+    print(sub)
+
+    # next subset
+    b = (b - num_subs) & num_subs
+
+    if not b:
+      break
+
+  print()
+  size = 3
+  print(f"print subsets of size {size}")
+  for b in range(1 << x.bit_count()):
+    if b.bit_count() == size:
+      sub = set()
+      for i in range(x.bit_count()):
+        if b & (1 << i):
+          sub.add(s[i])
+      print(sub)
