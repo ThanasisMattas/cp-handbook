@@ -72,8 +72,8 @@ def test_solve():
     (1, 0),
     (1, 1),
     (3, 3),
-    (7, 7),
-    (15, 15)
+    (3, 5),
+    (15, 1)
   )
   for n, m in zero_count_cases:
     assert solve(n, m) == 0, (n, m)
