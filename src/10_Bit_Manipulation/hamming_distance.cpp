@@ -3,6 +3,7 @@ using namespace std;
 
 
 const int n = 10;
+// bitstring size
 const int k = 8;
 
 string bitstr[n] = {
@@ -29,13 +30,6 @@ int hamming(string a, string b)
 }
 
 
-// O(1)
-int hamming(unsigned long a, unsigned long b)
-{
-  return __builtin_popcount(a ^ b);
-}
-
-
 // if __builtin_popcount is not available
 int hamming_c_style(unsigned x, unsigned y)
 {
@@ -54,22 +48,28 @@ int hamming_c_style(unsigned x, unsigned y)
 }
 
 
+// O(nk)
+vector<int> bitstrings_to_ints(const string* bitstr)
+{
+  vector<int> ints(n);
+  for (int i = 0; i < n; ++i)
+    ints[i] = std::stoi(bitstr[i], nullptr, 2);
+  return ints;
+}
+
+
+// O(n^2)
 void solve()
 {
+  vector<int> ints = bitstrings_to_ints(bitstr);
   // max possible
   int best = k;
   for (int i = 0; i < n - 1; ++i) {
     for (int j = i + 1; j < n; ++j) {
-      int d = hamming(
-        std::stoi(bitstr[i], nullptr, 2),  // probably O(k)
-        std::stoi(bitstr[j], nullptr, 2)
-      );
-      int dd = hamming_c_style(
-        std::stoi(bitstr[i], nullptr, 2),  // probably O(k)
-        std::stoi(bitstr[j], nullptr, 2)
-      );
-      assert(d == dd);
-      best = min(best, d);
+      int dist = __builtin_popcount(ints[i] ^ ints[j]);  // O(1)
+      // int dist_c_style = hamming_c_style(ints[i], ints[j]);
+      // assert(dist == dist_c_style);
+      if (dist < best) best = dist;
     }
   }
   cout << "min Hamming distance: " << best << '\n';
