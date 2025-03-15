@@ -36,6 +36,24 @@ int hamming(unsigned long a, unsigned long b)
 }
 
 
+// if __builtin_popcount is not available
+int hamming_c_style(unsigned x, unsigned y)
+{
+    int dist = 0;
+
+    // The ^ operators sets to 1 only the bits that are different
+    for (unsigned val = x ^ y; val > 0; ++dist)
+    {
+        // We then count the bit set to 1 using the Peter Wegner way
+        // ; // Set to zero val's lowest-order 1
+        val = val & (val - 1);
+    }
+
+    // Return the number of differing bits
+    return dist;
+}
+
+
 void solve()
 {
   // max possible
@@ -46,6 +64,11 @@ void solve()
         std::stoi(bitstr[i], nullptr, 2),  // probably O(k)
         std::stoi(bitstr[j], nullptr, 2)
       );
+      int dd = hamming_c_style(
+        std::stoi(bitstr[i], nullptr, 2),  // probably O(k)
+        std::stoi(bitstr[j], nullptr, 2)
+      );
+      assert(d == dd);
       best = min(best, d);
     }
   }
