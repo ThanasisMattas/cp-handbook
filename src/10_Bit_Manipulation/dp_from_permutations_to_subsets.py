@@ -3,7 +3,7 @@ n = len(weight)
 x = 10
 
 # [min_num_rides, min_last_sum]
-best = [[2e9, 2e9] for _ in range(1 << n)]
+best = [[n + 1, 0] for _ in range(1 << n)]
 
 
 # O(n2^n)
@@ -16,8 +16,6 @@ def solve():
   best[0] = [1, 0]
 
   for s in range(1, 1 << n):
-    best[s] = [n + 1, 0]
-
     for p in range(n):
       if s & (1 << p):
         option = best[s ^ (1 << p)].copy()
