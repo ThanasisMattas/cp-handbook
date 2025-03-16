@@ -13,7 +13,7 @@ int price[k][n] = {
 };
 
 
-// O(k^n)
+// O(nk2^k)
 int solve_rec(int s, int d)
 {
   if (s == 0) return 0;

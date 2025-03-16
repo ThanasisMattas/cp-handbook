@@ -13,6 +13,9 @@ k = len(price)
 n = len(price[0])
 
 
+# O(2^k * n * k)
+# The function operates on a (s, d) state. s takes 1 << k = 2^k values and d
+# takes n values. Each (s, d) state has at most k recursive calls.
 def solve_rec(s, d):
   # emtpy set: 0 cost
   if s == 0:
@@ -45,6 +48,8 @@ def solve_rec(s, d):
 total = [[2e9 for _ in range(1 << k)] for _ in range(n)]
 
 
+# O(2^k * n * k)
+# Same with recursive, but significantly faster due to memoization.
 def solve_dp():
   # empty set costs nothing at any day
   for d in range(n):
