@@ -18,7 +18,7 @@ int solve_rec(int s, int d)
 {
   if (s == 0) return 0;
   if (d == 0) {
-    // (s & (s - 1)) == 0 : s is a power of 2 (or a single-item set)
+    // check if s is a power of 2 (namely, a single-item set)
     if ((s & (s - 1)) == 0) return price[(int)log2(s)][0];
     // s is a multy-item set, buy the cheapest product at day 0
     int best = INT_MAX;
@@ -47,7 +47,7 @@ int total[1 << k][n];
 
 
 // O(nk2^k)
-void solve_dp()
+int solve_dp()
 {
   // dp initialization
   // 0 total cost for empty subset at any day
@@ -82,12 +82,14 @@ void solve_dp()
       }
     }
   }
+  return total[(1 << k) - 1][n - 1];
 }
 
 
 int main()
 {
-  solve_dp();
-  cout << "dp: " << total[(1 << k) - 1][n - 1] << '\n';
-  cout << "recursion: " << solve_rec((1 << k) - 1, n - 1) << '\n';
+  int cost_rec = solve_rec((1 << k) - 1, n - 1);
+  int cost_dp = solve_dp();
+  cout << "total cost: " << cost_dp << '\n';
+  assert(cost_rec == cost_dp);
 }
