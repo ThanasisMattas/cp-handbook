@@ -32,6 +32,7 @@ void solve()
           ++option.first;
           option.second = weight[p];
         }
+
         best[s] = min(best[s], option);
       }
     }

@@ -18,7 +18,6 @@ def solve():
   for s in range(1, 1 << n):
     best[s] = [n + 1, 0]
 
-    # optimally choose the last person p who enters the elevator
     for p in range(n):
       if s & (1 << p):
         option = best[s ^ (1 << p)].copy()
@@ -30,8 +29,8 @@ def solve():
           # else, start a new ride with p as the single passenger
           option[0] += 1
           option[1] = weight[p]
-        if option[0] < best[s][0]:
-          best[s] = option
+
+        best[s] = min(best[s], option)
 
   return best[-1][0]
 
