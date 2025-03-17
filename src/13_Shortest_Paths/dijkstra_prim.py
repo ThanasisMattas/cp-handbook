@@ -20,6 +20,7 @@ adj = [
 start = 1
 
 
+# O((m + n)logn), n: number of nodes, m: number of edges
 def dijkstra():
   visited = [False] * len(adj)
   dist = [math.inf] * len(adj)
