@@ -14,7 +14,7 @@ N = 64
 num_blocks = (n + N - 1) // N
 
 color = [random.choices((0, 1), k=n) for _ in range(n)]
-color_packed = [[0 for _ in range(num_blocks)] for _ in range(n)]
+color_packed = [[0] * num_blocks for _ in range(n)]
 
 
 # O(n^2)

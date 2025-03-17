@@ -3,8 +3,8 @@ from pprint import pprint
 
 n = 5  # rows
 m = 7  # cols
-v = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
-psm = [[0 for _ in range(m)] for _ in range(n)]
+v = [[randint(0, 9)] * m for _ in range(n)]
+psm = [[0] * m for _ in range(n)]
 
 
 # O(nm)

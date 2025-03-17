@@ -45,7 +45,7 @@ def solve_rec(s, d):
 
 
 # total[s][d]: min price of buying subset s at day d
-total = [[2e9 for _ in range(n)] for _ in range(1 << k)]
+total = [[2e9] * n for _ in range(1 << k)]
 
 
 # O(2^k * n * k)

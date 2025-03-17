@@ -22,7 +22,7 @@ adj = [
 def dijkstra():
   start = 1
   n = len(adj)
-  visited = [False for _ in range(n + 1)]
+  visited = [False] * (n + 1)
   visited[start] = True
   dist = [math.inf] * (n + 1)
   dist[start] = 0
@@ -74,7 +74,7 @@ def dijkstra_heap():
 
 def prim(adj, start):
   n = len(adj)
-  visited = [False for _ in range(n + 1)]
+  visited = [False] * (n + 1)
   visited[start] = True
   dist = [math.inf] * (n + 1)
   dist[start] = 0
