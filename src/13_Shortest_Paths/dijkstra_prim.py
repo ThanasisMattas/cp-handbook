@@ -17,46 +17,48 @@ adj = [
   [(9, 3)],
   [(7, 5), (8, 3)]
 ]
+start = 1
 
 
 def dijkstra():
-  start = 1
-  n = len(adj)
-  visited = [False] * (n + 1)
-  visited[start] = True
-  dist = [math.inf] * (n + 1)
+  visited = [False] * len(adj)
+  dist = [math.inf] * len(adj)
+  prev = [None] * len(adj)
   dist[start] = 0
+  prev[start] = -1
   pq = [(0, start)]
-  heapq.heapify(pq)
+  heapq.heapify(pq)  # min heap by default
 
   while pq:
-    _, u = heapq.heappop(pq)
+    u = heapq.heappop(pq)[1]
     if visited[u]:
       continue
     visited[u] = True
     for v, w in adj[u]:
-      # if visited[v]:
-      #   continue
-      if dist[v] > dist[u] + w:
+      if dist[u] + w < dist[v]:
         dist[v] = dist[u] + w
+        prev[v] = u
         # The old value will be downstream in the priority queue. If its turn
         # to be popped out comes, it will be ignored, because v will be already
         # marked as visited.
-        heapq.heappush((dist[v], v))
-  return dist
+        heapq.heappush(pq, (dist[v], v))
+  return [[d, p] for d, p in zip(dist, prev)]
 
 
 def dijkstra_heap():
+  """ignore"""
   visited = [[0, None] for _ in adj]
   to_visit = [[math.inf, u, None] for u in range(len(adj))]
+  # references to to_visit entries: used to locate and relax to_visit entries
   entry_finder = {u: entry for u, entry in enumerate(to_visit)}
-  entry_finder[1][0] = 0
-  entry_finder[1][2] = -1
+  entry_finder[start][0] = 0
+  entry_finder[start][2] = -1
   heapq.heapify(to_visit)
 
   while to_visit:
     while True:
       cost, u, u_prev = heapq.heappop(to_visit)
+      # check if this entry is already visited
       if u != -1:
         break
     visited[u][0] = cost
@@ -65,6 +67,7 @@ def dijkstra_heap():
       if ((v in entry_finder)
               and (entry_finder[v][0] > cost + uv_cost)):
         entry = entry_finder.pop(v)
+        # flag this entry as removed (to be replaced with the relaxed one)
         entry[1] = -1
         new_entry = [cost + uv_cost, v, u]
         entry_finder[v] = new_entry
@@ -103,7 +106,25 @@ def prim(adj, start):
 def main():
   result1 = dijkstra()
   result2 = dijkstra_heap()
-  assert result1 == result2 == [[math.inf, None], [0, -1], [2, 1], [8, 2], [12, 6], [12, 2], [4, 1], [5, 6], [9, 7], [6, 10], [2, 1], [7, 9], [8, 7]]
+  print(f"distances from {start}:")
+  print("[distance, cost]")
+  __import__('pprint').pprint(result1)
+  expected = [
+    [math.inf, None],
+    [0, -1],
+    [2, 1],
+    [8, 2],
+    [12, 6],
+    [12, 2],
+    [4, 1],
+    [5, 6],
+    [9, 7],
+    [6, 10],
+    [2, 1],
+    [7, 9],
+    [8, 7]
+  ]
+  assert result1 == result2 == expected
 
 
 if __name__ == '__main__':

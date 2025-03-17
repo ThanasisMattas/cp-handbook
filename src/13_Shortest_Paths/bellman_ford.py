@@ -1,6 +1,6 @@
 import math
 
-# general case of a directed graph
+# general case of a directed graph with negative weights
 adj = [
   [],
   [[2, 5], [6, 1], [10, 15]],           #  1
