@@ -5,6 +5,16 @@ using namespace std;
 const int n = 3;
 int value[1 << n] = {3, 1, 4, 5, 5, 1, 3, 3};
 
+// subsets:
+// 0: /     000
+// 1: 0     001
+// 2: 1     010
+// 3: 0 1   011
+// 4: 2     100
+// 5: 0 2   101
+// 6: 1 2   110
+// 7: 0 1 2 111
+
 
 // O(2^(2n))
 void solve_brute_force()
@@ -24,10 +34,10 @@ void solve_brute_force()
 
 
 
+// O(2^n)
 // We can only construct subsets of s by removing elements 0...k from s.
 // sum[s] = partial(s, n - 1)
 // partial(s, -1) = value[s]
-// O(2^n)
 int partial(int s, int k)
 {
   if (k == -1) return value[s];
@@ -41,7 +51,7 @@ int partial(int s, int k)
 // O(2^(2n))
 void solve_rec()
 {
-  cout << "Recursive: ";
+  cout << "Recursive  : ";
   for (int s = 0; s < (1 << n); ++s) {
     cout << partial(s, n - 1) << ' ';
   }
@@ -62,7 +72,7 @@ void solve_dp()
     for (int s = 0; s < (1 << n); ++s)
       if (s & (1 << k)) sum[s] += sum[s ^ (1 << k)];
 
-  cout << "DP: ";
+  cout << "DP         : ";
   copy(sum, sum + (1 << n), ostream_iterator<int>(cout, " "));
   cout << '\n';
 }

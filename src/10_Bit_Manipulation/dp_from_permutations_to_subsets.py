@@ -19,12 +19,13 @@ def solve():
     for p in range(n):
       if s & (1 << p):
         option = best[s ^ (1 << p)].copy()
+
         if option[1] + weight[p] <= x:
           # if person p fits in the last ride of set s ^ (1 << p), s consists
           # of the same amound of rides, adding p's weight at the last ride sum
           option[1] += weight[p]
         else:
-          # else, start a new ride with p as the single passenger
+          # else, start a new ride with only p
           option[0] += 1
           option[1] = weight[p]
 
