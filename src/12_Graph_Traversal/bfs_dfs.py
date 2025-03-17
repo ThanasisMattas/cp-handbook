@@ -11,29 +11,8 @@ def adjList(n, edges):
 
 
 # O(V+E), V: num vertices  E: num edges
-def bfs(adj, start):
-  n = len(adj)
-  visited = [False] * n
-  visited[start] = True
-  q = deque([start])
-  seq = []
-
-  while q:
-    u = q.popleft()
-    seq.append(u)
-    for v in adj[u]:
-      if visited[v]:
-        continue
-      visited[v] = True
-      q.append(v)
-
-  return seq
-
-
-# O(V+E), V: num vertices  E: num edges
 def dfs(adj, start):
-  n = len(adj)
-  visited = [False] * n
+  visited = [False] * len(adj)
   visited[start] = True
   stack = [start]
   seq = []
@@ -50,27 +29,10 @@ def dfs(adj, start):
   return seq
 
 
-def bfs_rec(adj, visited=None, cost=None, queue=None, start=None):
-  """call: bfs_rec(adj, start=start)"""
-  if visited is None:
-    n = len(adj)
-    cost = [math.inf] * (n + 1)
-    cost[start] = 0
-    visited = [False for _ in range(n + 1)]
-    visited[start] = True
-    queue = deque([start])
-  if queue:
-    u = queue.popleft()
-    for v in adj[u]:
-      if not visited[v]:
-        visited[v] = True
-        queue.append(v)
-        cost[v] = cost[u] + 1
-    return bfs_rec(adj, visited, cost, queue)
-  return cost
-
-
 def dfs_rec(u, adj, visited):
+  """DFS can naturally be implemented recursively, since explores a path deeply
+  before backtracking, which aligns well with the call stack used in recursion.
+  """
   # process u
   visited[u] = True
   for v in adj[u]:
@@ -84,6 +46,51 @@ def dfs_rec_tree(adj, u, u_prev):
   for u_next in adj[u]:
     if u_next != u_prev:
       dfs_rec_tree(adj, u_next, u)
+
+
+# O(V+E), V: num vertices  E: num edges
+def bfs(adj, start):
+  cost = [math.inf] * len(adj)
+  cost[start] = 0
+  visited = [False] * len(adj)
+  visited[start] = True
+  q = deque([start])
+  seq = []
+
+  while q:
+    u = q.popleft()
+    seq.append(u)
+    for v in adj[u]:
+      if visited[v]:
+        continue
+      visited[v] = True
+      cost[v] = cost[u] + 1
+      q.append(v)
+
+  return seq
+
+
+def bfs_rec(adj, visited=None, cost=None, queue=None, start=None):
+  """No natural resemblance to recursion, since it is not using a LIFO (call
+  stack) logic, only getting unnecessary recursive function calls.
+
+  call: bfs_rec(adj, start=start)
+  """
+  if visited is None:
+    cost = [math.inf] * len(adj)
+    cost[start] = 0
+    visited = [False] * len(adj)
+    visited[start] = True
+    queue = deque([start])
+  if queue:
+    u = queue.popleft()
+    for v in adj[u]:
+      if not visited[v]:
+        visited[v] = True
+        queue.append(v)
+        cost[v] = cost[u] + 1
+    return bfs_rec(adj, visited, cost, queue)
+  return cost
 
 
 def main():
