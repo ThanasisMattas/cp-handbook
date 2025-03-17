@@ -81,9 +81,7 @@ bool bellman_ford(int s)
 
 void solve()
 {
-  bool no_neg_cycle = bellman_ford(source);
-
-  if (no_neg_cycle) {
+  if (bellman_ford(source)) {
     for (int u = 1; u <=n; ++u) {
       cout << source << " -> " << u << " : " << dist[u] << '\n';
     }
@@ -98,5 +96,6 @@ int main()
   solve();
   // Introduce a negative cycle.
   adj[3][1] = make_pair(2, 1);
+  cout << '\n';
   solve();
 }
