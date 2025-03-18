@@ -27,7 +27,20 @@ to_leaf = [0] * len(adj)
 max_len = [0] * len(adj)
 
 
+def _random_node():
+  return random.randint(1, len(adj) - 1)
+
+
+def _init_dp():
+  global leaf
+  global to_leaf
+  to_leaf = [0] * len(adj)
+  leaf = [0] * len(adj)
+
+
 # O(n)
+# Calculates the longest path, whose highest point is u. In the book it is
+# refered as dp; however both methods here use DP, DFS and recursion.
 def solve_highest_point(u, u_prev=None):
   if len(adj[u]) == 1:
     # In order to be a leaf, the single neighbor has to be u_prev.
@@ -59,6 +72,55 @@ def solve_highest_point(u, u_prev=None):
   max_len[u] = first_max + second_max + 2
 
 
+# the farthest leaf
+leaf = [0] * len(adj)
+
+
+# O(n)
+def dfs(u, u_prev=None):
+  # In order to be a leaf, the single neighbor has to be u_prev.
+  if (len(adj[u]) == 1) and (adj[u][0] == u_prev):
+    if to_leaf[u_prev] == 0:
+      to_leaf[u_prev] = 1
+      leaf[u_prev] = u
+    return
+
+  for u_next in adj[u]:
+    if u_next == u_prev:
+      continue
+    dfs(u_next, u)
+    if to_leaf[u_next] + 1 > to_leaf[u]:
+      to_leaf[u] = to_leaf[u_next] + 1
+      leaf[u] = leaf[u_next]
+
+
+# O(n)
+# Calculates the longest path, by finding the farthest leaf from a random
+# node and then the farthest leaf of that leaf. In the book it is refered as
+# DFS; however, both methods here use DP, DFS and recursion.
+def solve_farthest_leaf_to_farthest_leaf():
+  # Step 1: Go to the farthest leaf, starting from a random node.
+  start = _random_node()
+  dfs(start)
+  farthest_leaf = leaf[start]
+
+  # Step 2: Go to the farthest leaf, starthing from that leaf.
+  _init_dp()
+  dfs(farthest_leaf)
+
+  return to_leaf[farthest_leaf]
+
+
 if __name__ == '__main__':
-  solve_highest_point(random.randint(1, len(adj)), 0)
-  print("diameter:", max(max_len))
+  solve_highest_point(_random_node())
+  diameter1 = max(max_len)
+  _init_dp()
+  diameter2 = solve_farthest_leaf_to_farthest_leaf()
+  print("diameter:", diameter1)
+
+  # test starting from a leaf
+  _init_dp()
+  solve_highest_point(12)
+  diameter3 = max(max_len)
+
+  assert diameter1 == diameter2 == diameter3, (diameter1, diameter2, diameter3)
