@@ -32,20 +32,12 @@ int max_len[n + 1] = {0};
 // O(n)
 // Calculates the longest path, whose highest point is u. In the book it is
 // refered as dp; however both methods here use DP, DFS and recursion.
-void solve_highest_point(int u, int u_prev)
+void solve_highest_point(int u, int u_prev=0)
 {
-  if (adj[u].size() == 1) {
-    // In order to be a leaf, the single neighbor has to be u_prev.
-    if (adj[u][0] == u_prev) {
-      to_leaf[u_prev] = max(to_leaf[u_prev], 1);
-      return;
-    }
-    if (u_prev == 0) {
-      // then the execution started from a leaf
-      to_leaf[adj[u][0]] = 1;
-      u = adj[u][0];
-      u_prev = u;
-    }
+  // In order to be a leaf, the single neighbor has to be u_prev.
+  if ((adj[u].size() == 1) && (adj[u][0] == u_prev)) {
+    to_leaf[u_prev] = max(to_leaf[u_prev], 1);
+    return;
   }
 
   int first_max = 0;
@@ -63,7 +55,10 @@ void solve_highest_point(int u, int u_prev)
     }
 
     to_leaf[u] = first_max + 1;
-    max_len[u] = first_max + second_max + 2;
+    // If the tree was rooted to a node with a single child, we cannot add 2,
+    // since there are not 2 separate branches. In that case, we either add 1
+    // instead of 2 or max_len is the same as to_leaf.
+    max_len[u] = first_max + second_max + 1 + (bool)u_prev;
   }
 }
 
@@ -73,7 +68,7 @@ int leaf[n + 1];
 
 
 // O(n)
-void dfs(int u, int u_prev)
+void dfs(int u, int u_prev=0)
 {
   // In order to be a leaf, the single neighbor has to be u_prev.
   if ((adj[u].size() == 1) && (adj[u][0] == u_prev)) {
@@ -102,20 +97,20 @@ int solve_farthest_leaf_to_farthest_leaf()
 {
   // Step 1: Go to the farthest leaf, starting from a random node.
   int s = 4;
-  dfs(s, 0);
+  dfs(s);
   int farthest_leaf = leaf[s];
 
   // Step 2: Go to the farthest leaf, starthing from that leaf.
   memset(to_leaf, 0, sizeof(to_leaf));
   memset(leaf, 0, sizeof(leaf));
-  dfs(farthest_leaf, 0);
+  dfs(farthest_leaf);
   return to_leaf[farthest_leaf];
 }
 
 
 int main()
 {
-  solve_highest_point(12, 0);
+  solve_highest_point(12);
   int diameter1 = *max_element(max_len, max_len + n + 1);
   memset(to_leaf, 0, sizeof(to_leaf));
   int diameter2 = solve_farthest_leaf_to_farthest_leaf();
