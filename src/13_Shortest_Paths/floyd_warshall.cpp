@@ -18,16 +18,8 @@ int adj[n + 1][n + 1] = {
   {f, f, f, 8, f, f, -1, f, f, 0, f, 4, f},   //  9
   {f, -1, f, 6, f, f, f, f, f, 2, 0, f, f},   // 10
   {f, f, f, f, f, f, f, 14, f, 12, f, 0, f},  // 11
-  {f, f, 15, f, f, 1, 1, 2, f, -3, f, f, 0},  // 12
+  {f, f, 15, f, f, 1, 1, 2, f, -3, f, f, 0}   // 12
 };
-
-
-void init_dist()
-{
-  for (int i = 0; i <= n; ++i)
-    for (int j = 0; j <= n; ++j)
-      dist[i][j] = adj[i][j];
-}
 
 
 // O(n^3)
@@ -88,7 +80,8 @@ void print_dist()
 
 int main()
 {
-  init_dist();
+  // init dist with direct edges
+  memcpy(dist, adj, sizeof(adj));
   floyd_warshall();
   print_dist();
 }
