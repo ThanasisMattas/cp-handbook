@@ -48,11 +48,11 @@ void solve_highest_point(int u, int u_prev)
       if (to_leaf[u_next] > first_max) {
         second_max = first_max;
         first_max = to_leaf[u_next];
-        to_leaf[u] = first_max + 1;
       } else if (to_leaf[u_next] > second_max) {
         second_max = to_leaf[u_next];
       }
 
+      to_leaf[u] = first_max + 1;
       max_len[u] = first_max + second_max + 2;
     }
   }
