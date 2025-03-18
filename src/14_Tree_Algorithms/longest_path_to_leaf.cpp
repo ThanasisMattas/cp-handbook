@@ -26,6 +26,7 @@ vector<int> adj[n + 1] = {
 int len[n + 1] = {0};
 
 
+// O(n)
 void dfs(int u, int u_prev)
 {
   // In order to be a leaf, the single neighbor has to be u_prev.
@@ -43,9 +44,8 @@ void dfs(int u, int u_prev)
 
 int main()
 {
-  dfs(1, 0);
-
-  for (int i = 1; i <= n; ++i)
-    cout << setw(2) << i << " : " << len[i] << '\n';
+  int node = 1;
+  dfs(node, 0);
+  cout << node << " : " << len[node] << '\n';
 }
 

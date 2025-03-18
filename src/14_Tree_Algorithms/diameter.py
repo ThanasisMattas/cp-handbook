@@ -1,34 +1,11 @@
-import random
+# tip: focus on the 2 dfs' (farthest leaf to farthest leaf)
 
-#              1
-#        2           3
-#    4       5   6       7
-# 8     9                   12
-#     10 11
-adj = [
-  [],
-  [2, 3],       #  1
-  [1, 4, 5],    #  2
-  [1, 6, 7],    #  3
-  [2, 8, 9],    #  4
-  [2],          #  5
-  [3],          #  6
-  [3, 12],      #  7
-  [4],          #  8
-  [4, 10, 11],  #  9
-  [9],          # 10
-  [9],          # 11
-  [7]           # 12
-]
+from tree_examples import adj, random_node
 
 # len to farthest leaf
 to_leaf = [0] * len(adj)
 # max len of the paths with the i node as the highest point
 max_len = [0] * len(adj)
-
-
-def _random_node():
-  return random.randint(1, len(adj) - 1)
 
 
 def _init_dp():
@@ -100,7 +77,7 @@ def dfs(u, u_prev=None):
 # DFS; however, both methods here use DP, DFS and recursion.
 def solve_farthest_leaf_to_farthest_leaf():
   # Step 1: Go to the farthest leaf, starting from a random node.
-  start = _random_node()
+  start = random_node()
   dfs(start)
   farthest_leaf = leaf[start]
 
@@ -112,7 +89,7 @@ def solve_farthest_leaf_to_farthest_leaf():
 
 
 if __name__ == '__main__':
-  solve_highest_point(_random_node())
+  solve_highest_point(random_node())
   diameter1 = max(max_len)
   _init_dp()
   diameter2 = solve_farthest_leaf_to_farthest_leaf()
