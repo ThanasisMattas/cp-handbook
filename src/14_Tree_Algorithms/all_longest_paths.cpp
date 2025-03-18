@@ -10,14 +10,14 @@ vector<int> adj[n + 1] = {
   {},
   {2, 3, 4},  //  1
   {1, 5, 6},  //  2
-  {1,},       //  3
+  {1},        //  3
   {1},        //  4
   {2},        //  5
-  {2},        //  6
+  {2}         //  6
 };
 int len_1[n + 1] = {0};
 int len_2[n + 1] = {0};
-int max_len_through_this_node[n + 1];
+int max_len_through_this_child[n + 1];
 
 
 // O(n)
@@ -26,7 +26,7 @@ int max_len_through_this_node[n + 1];
 void part_1(int u, int u_prev)
 {
   // Base case: u is a leaf
-  if (adj[u].size() == 1 && adj[u][0] == u_prev) {
+  if ((adj[u].size() == 1) && (adj[u][0] == u_prev)) {
     if (len_1[u_prev] == 0) {
       len_1[u_prev] = 1;
     } else {
@@ -39,7 +39,7 @@ void part_1(int u, int u_prev)
       if (len_1[u] < len_1[u_next] + 1) {
         len_2[u] = len_1[u];
         len_1[u] = len_1[u_next] + 1;
-        max_len_through_this_node[u] = u_next;
+        max_len_through_this_child[u] = u_next;
       } else if (len_1[u] == len_1[u_next] + 1) {
         len_2[u] = len_1[u];
       } else {
@@ -55,18 +55,18 @@ void part_1(int u, int u_prev)
 // the parent of each node.
 void part_2(int u, int u_prev)
 {
-  if (max_len_through_this_node[u_prev] == u) {
+  if (max_len_through_this_child[u_prev] == u) {
     // max_len of u_prev goes through u
     if (len_2[u_prev] + 1 > len_1[u]) {
       len_2[u] = len_1[u];
       len_1[u] = len_2[u_prev] + 1;
-      max_len_through_this_node[u] = u_prev;
+      max_len_through_this_child[u] = u_prev;
     }
   } else {
     if (len_1[u_prev] + 1 > len_1[u]) {
       len_2[u] = len_1[u];
       len_1[u] = len_1[u_prev] + 1;
-      max_len_through_this_node[u] = u_prev;
+      max_len_through_this_child[u] = u_prev;
     }
   }
 
