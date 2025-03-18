@@ -28,11 +28,17 @@ max_len = [0] * len(adj)
 
 
 # O(n)
-def solve_highest_point(u, u_prev):
-  # In order to be a leaf, the single neighbor has to be u_prev.
-  if (len(adj[u]) == 1) and (adj[u][0] == u_prev):
-    to_leaf[u_prev] = max(to_leaf[u_prev], 1)
-    return
+def solve_highest_point(u, u_prev=None):
+  if len(adj[u]) == 1:
+    # In order to be a leaf, the single neighbor has to be u_prev.
+    if u_prev == adj[u][0]:
+      to_leaf[u_prev] = max(to_leaf[u_prev], 1)
+      return
+    if u_prev is None:
+      # then the execution started from a leaf
+      to_leaf[adj[u][0]] = 1
+      u = adj[u][0]
+      u_prev = u
 
   # 2 longest to_leaf distances of 2 children of u
   first_max = 0
