@@ -31,3 +31,17 @@ def time_this(f):
       print(f"{f.__name__:-<30}{duration}"[:45])
       return result
     return wrap
+
+
+def print_table(table):
+  max_dist = max(max(row for row in table))
+  max_dist_len = len(str(max_dist))
+  n = len(table)
+  n_len = len(str(n))
+  print(' ' * (n_len + 3), end='')
+  print(' '.join(f"{x:>{max_dist_len}}" for x in range(1, n + 1)))
+  print(' ' * (n_len + 3), end='')
+  print('-' * (3 * n - 1))
+  for r, row in enumerate(table):
+    print(f"{r + 1:{n_len}}", '|', end=' ')
+    print(' '.join(f"{x:>{max_dist_len}}" for x in row))
