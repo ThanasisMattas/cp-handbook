@@ -1,7 +1,8 @@
 # CP-Handbook
 
-The ultimate turnkey C++ collection of algorithms from the
-[Competitive Programmer's Handbook] by Antti Laaksonen.
+The ultimate turnkey collection of algorithms from
+[Competitive Programmer's Handbook] by Antti Laaksonen, implemented in both
+Python (≥ 3.10) and C++ (≥ C++11).
 
 ## Usage
 
