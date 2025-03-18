@@ -40,10 +40,8 @@ void part_1(int u, int u_prev)
         len_2[u] = len_1[u];
         len_1[u] = len_1[u_next] + 1;
         max_len_through_this_child[u] = u_next;
-      } else if (len_1[u] == len_1[u_next] + 1) {
-        len_2[u] = len_1[u];
-      } else {
-        len_2[u] = max(len_2[u], len_1[u_next] + 1);
+      } else if (len_2[u] < len_1[u_next] + 1) {
+        len_2[u] = len_1[u_next] + 1;
       }
     }
   }
