@@ -54,16 +54,16 @@ struct shorter_edge
 };
 
 
-// O(nlog(n))
+// O(mlog(n)) if edge_list is sorted else O(mlog(m))
 void kruskal()
 {
-  sort(edge_list.begin(), edge_list.end(), shorter_edge());
+  sort(edge_list.begin(), edge_list.end(), shorter_edge());  // O(mlog(m))
   iota(arc, arc + m, 0);
   fill(set_size, set_size + m, 1);
   int cost = 0;
 
   cout << "MST:\n";
-  for (auto&& [a, b, w] : edge_list) {
+  for (auto&& [a, b, w] : edge_list) {  // O(mlog(n))
     if (!same(a, b)) {
       cost += w;
       unite(a, b);
