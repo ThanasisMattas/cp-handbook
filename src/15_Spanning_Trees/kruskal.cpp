@@ -15,21 +15,21 @@ vector<tuple<int, int, int> > edge_list = {
 };
 
 
-int link[m];
+// apparently link is reserved
+int arc[m];
 int set_size[m];
 
 
-// representative
 // O(logn)
-int repr(int x)
+int representative(int x)
 {
-  while (x != link[x]) x = link[x];
+  while (x != arc[x]) x = arc[x];
   return x;
 }
 
 
 // O(logn)
-bool same(int a, int b) {return repr(a) == repr(b);}
+bool same(int a, int b) {return representative(a) == representative(b);}
 
 
 // O(logn)
@@ -37,11 +37,11 @@ bool same(int a, int b) {return repr(a) == repr(b);}
 // smaller set to the larger set.
 void unite(int a, int b)
 {
-  a = repr(a);
-  b = repr(b);
+  a = representative(a);
+  b = representative(b);
   if (set_size[a] < set_size[b]) swap(a, b);
   set_size[a] += set_size[b];
-  link[b] = a;
+  arc[b] = a;
 }
 
 
@@ -54,21 +54,27 @@ struct shorter_edge
 };
 
 
-// O(mlog(m))
+// O(nlog(n))
 void kruskal()
 {
   sort(edge_list.begin(), edge_list.end(), shorter_edge());
-  iota(link, link + m, 0);
+  iota(arc, arc + m, 0);
   fill(set_size, set_size + m, 1);
+  int cost = 0;
 
+  cout << "MST:\n";
   for (auto&& [a, b, w] : edge_list) {
     if (!same(a, b)) {
+      cost += w;
       unite(a, b);
       // this is an MST edge
       cout << a << " - " << b << '\n';
     }
   }
+  cout << "total cost: " << cost << '\n';
 }
 
 
-int main() {kruskal();}
+int main() {
+  kruskal();
+}
