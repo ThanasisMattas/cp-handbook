@@ -12,7 +12,6 @@ edge_list = [
   [6, 4, 7]
 ]
 m = len(edge_list)
-
 adj = []
 
 
@@ -31,7 +30,6 @@ def prim(start):
   visited = [False] * len(adj)
   dist = [math.inf] * len(adj)
   prev = [None] * len(adj)
-  # visited[start] = True
   dist[start] = 0
   prev[start] = -1
   # The priority queue at Dijkstra's alg keeps the min distance from start to
@@ -46,11 +44,11 @@ def prim(start):
     if visited[u]:
       continue
     visited[u] = True
-    cost += dist[u]
+    cost += w
     if u != start:
       print(prev[u], '-', u)
     for v, w in adj[u]:
-      if dist[v] > w:
+      if w < dist[v]:
         dist[v] = w
         prev[v] = u
         heapq.heappush(pq, (w, v))

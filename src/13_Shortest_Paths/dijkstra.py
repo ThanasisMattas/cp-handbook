@@ -76,40 +76,13 @@ def dijkstra_heap():
   return visited
 
 
-def prim(adj, start):
-  n = len(adj)
-  visited = [False] * (n + 1)
-  visited[start] = True
-  dist = [math.inf] * (n + 1)
-  dist[start] = 0
-  pq = [(0, start)]
-  heapq.heapify(pq)
-  total_cost = 0
-
-  while pq:
-    _, u = heapq.heappop(pq)
-    if visited[u]:
-      continue
-    visited[u] = True
-    total_cost += dist[u]
-    for v, w in adj[u]:
-      if visited[v]:
-        continue
-      if dist[v] > w:
-        dist[v] = w
-        # The old value will be downstream in the priority queue. If its turn
-        # to be popped out comes, it will be ignored, because v will be already
-        # marked as visited.
-        heapq.heappush((dist[v], v))
-  return total_cost
-
-
-def main():
+if __name__ == '__main__':
   result1 = dijkstra()
   result2 = dijkstra_heap()
-  print(f"distances from {start}:")
-  print("[distance, cost]")
-  __import__('pprint').pprint(result1)
+  for u, [d, p] in enumerate(result1):
+    if u > 1:
+      print(f"{start} -> {u}  cost: {d}  previous node: {p}")
+
   expected = [
     [math.inf, None],
     [0, -1],
@@ -126,7 +99,3 @@ def main():
     [8, 7]
   ]
   assert result1 == result2 == expected
-
-
-if __name__ == '__main__':
-  main()
