@@ -20,9 +20,6 @@ bool cycle = false;
 void dfs(int u, int u_prev)
 {
   if (!cycle) {
-    // There is no way to get to a node with status 2. If there was, it would
-    // mean that its ansestors are still being processed, therefore it would
-    // still be in status 1.
     if (state[u] == 1) cycle = true;
     else if (state[u] == 0) {
       state[u] = 1;
