@@ -5,14 +5,26 @@
 using namespace std;
 
 
-template <typename T>
-ostream& operator<<(ostream& out, const vector<T>& v)
-{
-  if (!v.empty()) {
-    copy(v.begin(), v.end(), ostream_iterator<T>(out, " "));
-    out << "\b";
-  }
-  return out;
+// Generic operator<< overload for iterable containers
+template <
+  typename Container,
+  typename = typename enable_if<
+    !is_same<Container, string>::value  // string has an overload already
+        && is_convertible<
+          typename Container::const_iterator,
+          typename Container::const_iterator
+        >::value // hack to check if Container has a valid const_iterator
+  >::type // if false, SFINAE excludes the function from overload resolution
+>
+ostream& operator<<(ostream& out, const Container& container) {
+    if (!container.empty()) {
+        auto it = container.begin();
+        out << *it;  // print first element
+        for (++it; it != container.end(); ++it) {
+            out << " " << *it;
+        }
+    }
+    return out;
 }
 
 
@@ -22,6 +34,7 @@ ostream& operator<<(ostream& out, const vector<vector<T> >& v)
   const size_t n = v.size();
   if (n > 0) {
     for (size_t i = 0; i < n - 1; ++i) out << v[i] << '\n';
+    // print last line
     out << v[n - 1];
   }
   return out;
