@@ -31,11 +31,13 @@ ostream& operator<<(ostream& out, const Container& container) {
 template <typename T>
 ostream& operator<<(ostream& out, const vector<vector<T> >& v)
 {
-  const size_t n = v.size();
-  if (n > 0) {
-    for (size_t i = 0; i < n - 1; ++i) out << v[i] << '\n';
-    // print last line
-    out << v[n - 1];
+  if (!v.empty()) {
+    auto it = v.begin();
+    // print first line
+    out << *it;
+    for (++it; it != v.end(); ++it) {
+      out << '\n' << *it;
+    }
   }
   return out;
 }
