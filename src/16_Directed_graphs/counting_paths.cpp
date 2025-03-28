@@ -62,35 +62,35 @@ void solve_dp()
 
 
 vector<int> top_sort;
-bool cycle = false;
 int state[n + 1] = {0};
 
 
-void dfs_top_sort(int u, int u_prev)
+// returns true if a cycle is detected
+bool dfs_top_sort(int u, int u_prev=-1)
 {
-  if (cycle) return;
-  if (state[u] == 1) cycle = true;
-  else if (state[u] == 0) {
-    state[u] = 1;
-    for (int& u_next : adj[u]) {
-      if (u_prev != u_next) dfs_top_sort(u_next, u);
-    }
-    state[u] = 2;
-    top_sort.push_back(u);
-  }
+  if (state[u] == 2) return false;
+  if (state[u] == 1) return true;
+
+  state[u] = 1;
+  for (auto u_next : adj[u])
+    if (u_prev != u_next)
+      if (dfs_top_sort(u_next, u))
+        return true;
+
+  state[u] = 2;
+  top_sort.push_back(u);
+  return false;
 }
 
 
 void populate_top_sort()
 {
   for (int u = 1; u <= n; ++u) {
-    if (state[u] == 1) {
-      cycle = true;
+    if (dfs_top_sort(u)) {
+      cout << "Cycle detected\n";
       break;
-    } else if (state[u] == 0) dfs_top_sort(u, 0);
+    }
   }
-  // Let's assume there is no cycle and don't check for that.
-  reverse(top_sort.begin(), top_sort.end());
 }
 
 
@@ -100,8 +100,9 @@ void solve_top_sort()
   populate_top_sort();
   paths[1] = 1;
 
-  for (int& u : top_sort) {
-    for (int& v : adj[u]) {
+  for (auto it = top_sort.rbegin(); it != top_sort.rend(); ++it) {
+    int u = *it;
+    for (auto v : adj[u]) {
       paths[v] += paths[u];
     }
   }
