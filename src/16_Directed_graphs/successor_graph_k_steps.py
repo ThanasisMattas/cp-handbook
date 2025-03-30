@@ -8,7 +8,8 @@ succ_px = [[0] * (n + 1) for _ in range(max_p)]
 
 # O(nlogu), here O(nlog(2n)) = O(nlogn)
 # This bottom-up approach is better than the recursive (top-down), since it is
-# cleaner, more explicit and it avoids redundant function calls.
+# cleaner, more explicit and it avoids the redundant function calls and the
+# function call stack memory overhead.
 def populate_succ_px_iterative():
   succ_px[0] = succ.copy()
 
