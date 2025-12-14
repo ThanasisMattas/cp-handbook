@@ -19,11 +19,24 @@
 #       0 1 2 3
 #             x
 
-n = 4
-counter = 0
-col = [0] * n
-diag1 = [0] * (2 * n - 1)
-diag2 = [0] * (2 * n - 1)
+n = None
+counter = None
+col = None
+diag1 = None
+diag2 = None
+
+
+def _set_vars(n_new):
+  global n
+  global counter
+  global col
+  global diag1
+  global diag2
+  n = n_new
+  counter = 0
+  col = [0] * n
+  diag1 = [0] * (2 * n - 1)
+  diag2 = [0] * (2 * n - 1)
 
 
 # O(n!)
@@ -57,16 +70,12 @@ def solve(y=0):
 
 
 if __name__ == '__main__':
+  _set_vars(4)
   solve()
   print(counter)
   assert counter == 2
 
-  n = 8
-  counter = 0
-  col = [0] * n
-  diag1 = [0] * (2 * n - 1)
-  diag2 = [0] * (2 * n - 1)
-
+  _set_vars(8)
   solve()
   print(counter)
   assert counter == 92
