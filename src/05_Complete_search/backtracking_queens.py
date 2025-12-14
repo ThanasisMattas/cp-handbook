@@ -1,5 +1,5 @@
 
-# diag1[x + y]
+# diag1[y + x]
 # –––––
 # y 3 | 3 4 5 6
 #   2 | 2 3 4 5
@@ -9,7 +9,7 @@
 #       0 1 2 3
 #             x
 
-# diag2[n - 1 - x + y]
+# diag2[y - x + n - 1]
 # –––––
 # y 3 | 6 5 4 3
 #   2 | 5 4 3 2
@@ -49,11 +49,11 @@ def solve(y=0):
     return
 
   for x in range(n):
-    if col[x] or diag1[x + y] or diag2[n - 1 - x + y]:
+    if col[x] or diag1[y + x] or diag2[y - x + n - 1]:
       continue
-    col[x] = diag1[x + y] = diag2[n - 1 - x + y] = 1
+    col[x] = diag1[y + x] = diag2[y - x + n - 1] = 1
     solve(y + 1)
-    col[x] = diag1[x + y] = diag2[n - 1 - x + y] = 0
+    col[x] = diag1[y + x] = diag2[y - x + n - 1] = 0
 
 
 if __name__ == '__main__':
